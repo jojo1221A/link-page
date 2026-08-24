@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+?<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -18,53 +18,87 @@
     }
 
     body {
-      background: #08020f;
+      background-color: #05010c;
       background-image: 
-        radial-gradient(circle at center, rgba(147, 51, 234, 0.3) 0%, transparent 70%),
-        radial-gradient(circle at 50% 30%, rgba(192, 38, 211, 0.15) 0%, transparent 50%);
+        radial-gradient(circle at 50% 20%, rgba(168, 85, 247, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(192, 38, 211, 0.25) 0%, transparent 60%);
       color: #fff;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* --- מסך פתיחה (Intro Overlay) --- */
+    /* הילה סגולה פועמת ברקע הראשי */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(147, 51, 234, 0.15) 50%, transparent 70%);
+      filter: blur(60px);
+      z-index: 0;
+      animation: pulseAura 3.5s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes pulseAura {
+      0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.6; }
+      100% { transform: translate(-50%, -50%) scale(1.25); opacity: 1; }
+    }
+
+    /* --- מסך פתיחה (Intro) --- */
     #intro-overlay {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: #08020f;
-      background-image: radial-gradient(circle at center, rgba(168, 85, 247, 0.4) 0%, transparent 60%);
+      width: 100vw;
+      height: 100vh;
+      background: #04000a;
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 9999;
       transition: opacity 0.8s ease, visibility 0.8s ease;
+      overflow: hidden;
     }
 
+    /* קנווס לכוכבים */
+    #starfield {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    /* סיבוב מטבע בלוגו בפתיח */
     .intro-logo {
-      width: 220px;
-      height: 220px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 25px rgba(168, 85, 247, 0.8));
-      /* סיבוב 360 מעלות פעם אחת בלבד */
-      animation: spinOnce 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%; /* הופך את הריבוע לעיגול */
+      object-fit: cover;
+      box-shadow: 0 0 35px rgba(168, 85, 247, 0.9), 0 0 70px rgba(168, 85, 247, 0.5);
+      z-index: 2;
+      animation: coinSpin 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     }
 
-    @keyframes spinOnce {
+    @keyframes coinSpin {
       0% {
-        transform: rotate(0deg) scale(0.7);
+        transform: perspective(800px) rotateY(0deg) scale(0.4);
         opacity: 0;
       }
       50% {
         opacity: 1;
       }
       100% {
-        transform: rotate(360deg) scale(1);
+        transform: perspective(800px) rotateY(360deg) scale(1);
         opacity: 1;
       }
     }
@@ -74,10 +108,10 @@
       visibility: hidden;
     }
 
-    /* --- ראשי / Container --- */
+    /* --- תוכן ראשי --- */
     .container {
       width: 100%;
-      max-width: 480px;
+      max-width: 440px;
       padding: 20px;
       text-align: center;
       display: flex;
@@ -87,19 +121,19 @@
     }
 
     .main-logo {
-      width: 130px;
-      height: 130px;
-      object-fit: contain;
-      margin-bottom: 10px;
-      filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.6));
+      width: 120px;
+      height: 120px;
+      border-radius: 50%; /* לוגו עגול ברקע הראשי */
+      object-fit: cover;
+      margin-bottom: 12px;
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.8);
     }
 
     .title {
       font-size: 2.2rem;
       font-weight: 800;
-      letter-spacing: 1px;
       color: #fff;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
     }
 
     .title span {
@@ -127,19 +161,19 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 20px;
-      background: rgba(15, 7, 30, 0.85);
+      padding: 13px 20px;
+      background: rgba(12, 5, 24, 0.85);
       border-radius: 14px;
       text-decoration: none;
       font-weight: 600;
       font-size: 1.05rem;
       transition: all 0.3s ease;
-      position: relative;
-      direction: ltr; /* מציג אייקון משמאל, טקסט במרכז, חץ מימין */
+      direction: ltr;
+      backdrop-filter: blur(5px);
     }
 
     .link-card i.icon {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       width: 30px;
       text-align: center;
     }
@@ -158,64 +192,57 @@
       transform: translateY(-2px) scale(1.02);
     }
 
-    /* --- עיצוב מותאם לכל רשת (ניאון לפי התמונה) --- */
-    /* Kick */
+    /* כפתורי ניאון לפי התמונה */
     .kick {
       border: 1.5px solid #53fc18;
       color: #53fc18;
-      box-shadow: 0 0 10px rgba(83, 252, 24, 0.2);
+      box-shadow: 0 0 10px rgba(83, 252, 24, 0.25);
     }
-    .kick:hover { box-shadow: 0 0 20px rgba(83, 252, 24, 0.6); }
+    .kick:hover { box-shadow: 0 0 20px rgba(83, 252, 24, 0.7); }
 
-    /* Discord */
     .discord {
       border: 1.5px solid #5865F2;
       color: #5865F2;
-      box-shadow: 0 0 10px rgba(88, 101, 242, 0.2);
+      box-shadow: 0 0 10px rgba(88, 101, 242, 0.25);
     }
-    .discord:hover { box-shadow: 0 0 20px rgba(88, 101, 242, 0.6); }
+    .discord:hover { box-shadow: 0 0 20px rgba(88, 101, 242, 0.7); }
 
-    /* Twitch */
     .twitch {
       border: 1.5px solid #a970ff;
       color: #a970ff;
-      box-shadow: 0 0 10px rgba(169, 112, 255, 0.2);
+      box-shadow: 0 0 10px rgba(169, 112, 255, 0.25);
     }
-    .twitch:hover { box-shadow: 0 0 20px rgba(169, 112, 255, 0.6); }
+    .twitch:hover { box-shadow: 0 0 20px rgba(169, 112, 255, 0.7); }
 
-    /* TikTok */
     .tiktok {
       border: 1.5px solid #ffffff;
       color: #ffffff;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
     }
-    .tiktok:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+    .tiktok:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.7); }
 
-    /* Instagram */
     .instagram {
       border: 1.5px solid #e1306c;
       color: #f86f7b;
-      box-shadow: 0 0 10px rgba(225, 48, 108, 0.2);
+      box-shadow: 0 0 10px rgba(225, 48, 108, 0.25);
     }
-    .instagram:hover { box-shadow: 0 0 20px rgba(225, 48, 108, 0.6); }
+    .instagram:hover { box-shadow: 0 0 20px rgba(225, 48, 108, 0.7); }
 
-    /* PayPal */
     .paypal {
       border: 1.5px solid #0079c1;
       color: #3b99fc;
-      box-shadow: 0 0 10px rgba(0, 121, 193, 0.2);
+      box-shadow: 0 0 10px rgba(0, 121, 193, 0.25);
     }
-    .paypal:hover { box-shadow: 0 0 20px rgba(0, 121, 193, 0.6); }
+    .paypal:hover { box-shadow: 0 0 20px rgba(0, 121, 193, 0.7); }
 
-    /* WhatsApp */
     .whatsapp {
       border: 1.5px solid #25d366;
       color: #25d366;
-      box-shadow: 0 0 10px rgba(37, 211, 102, 0.2);
+      box-shadow: 0 0 10px rgba(37, 211, 102, 0.25);
     }
-    .whatsapp:hover { box-shadow: 0 0 20px rgba(37, 211, 102, 0.6); }
+    .whatsapp:hover { box-shadow: 0 0 20px rgba(37, 211, 102, 0.7); }
 
-    /* --- פוטר --- */
+    /* פוטר */
     footer {
       margin-top: 30px;
       display: flex;
@@ -248,13 +275,13 @@
 </head>
 <body>
 
-  <!-- מסך הפתיחה -->
+  <!-- מסך הפתיחה עם הכוכבים -->
   <div id="intro-overlay">
-    <!-- החלף את logo.png בנתיב לקובץ הלוגו שלך -->
+    <canvas id="starfield"></canvas>
     <img src="logo.png" alt="YardenRGS Logo" class="intro-logo">
   </div>
 
-  <!-- תוכן האתר הראשי -->
+  <!-- תוכן ראשי -->
   <div class="container">
     <div class="header">
       <img src="logo.png" alt="YardenRGS Logo" class="main-logo">
@@ -262,51 +289,45 @@
       <p class="subtitle">WELCOME TO MY LINKS</p>
     </div>
 
+    <!-- הכנס את הקישורים שלך במקום המילים "הכנס_קישור_כאן" -->
     <div class="links-wrapper">
-      <!-- Kick -->
-      <a href="https://kick.com/YOUR_USERNAME" target="_blank" class="link-card kick">
+      <a href="הכנס_קישור_כאן" target="_blank" class="link-card kick">
         <i class="fa-solid fa-k icon"></i>
         <span>Kick</span>
         <i class="fa-solid fa-chevron-right arrow"></i>
       </a>
 
-      <!-- Discord -->
-      <a href="https://discord.gg/YOUR_INVITE" target="_blank" class="link-card discord">
+      <a href="הכנס_קישור_כאן" target="_blank" class="link-card discord">
         <i class="fa-brands fa-discord icon"></i>
         <span>Discord</span>
         <i class="fa-solid fa-chevron-right arrow"></i>
       </a>
 
-      <!-- Twitch -->
-      <a href="https://twitch.tv/YOUR_USERNAME" target="_blank" class="link-card twitch">
+      <a href="הכנס_קישור_כאן" target="_blank" class="link-card twitch">
         <i class="fa-brands fa-twitch icon"></i>
         <span>Twitch</span>
         <i class="fa-solid fa-chevron-right arrow"></i>
       </a>
 
-      <!-- TikTok -->
-      <a href="https://tiktok.com/@YOUR_USERNAME" target="_blank" class="link-card tiktok">
+      <a href="הכנס_קישור_כאן" target="_blank" class="link-card tiktok">
         <i class="fa-brands fa-tiktok icon"></i>
         <span>TikTok</span>
         <i class="fa-solid fa-chevron-right arrow"></i>
       </a>
 
-      <!-- Instagram -->
-      <a href="https://instagram.com/YOUR_USERNAME" target="_blank" class="link-card instagram">
+      <a href="הכנס_קישור_כאן" target="_blank" class="link-card instagram">
         <i class="fa-brands fa-instagram icon"></i>
         <span>Instagram</span>
         <i class="fa-solid fa-chevron-right arrow"></i>
       </a>
 
-      <!-- PayPal -->
-      <a href="https://paypal.me/YOUR_USERNAME" target="_blank" class="link-card paypal">
+      <a href="הכנס_קישור_כאן" target="_blank" class="link-card paypal">
         <i class="fa-brands fa-paypal icon"></i>
         <span>PayPal</span>
         <i class="fa-solid fa-chevron-right arrow"></i>
       </a>
 
-      <!-- WhatsApp -->
-      <a href="https://wa.me/YOUR_PHONE_NUMBER" target="_blank" class="link-card whatsapp">
+      <a href="הכנס_קישור_כאן" target="_blank" class="link-card whatsapp">
         <i class="fa-brands fa-whatsapp icon"></i>
         <span>WhatsApp</span>
         <i class="fa-solid fa-chevron-right arrow"></i>
@@ -315,24 +336,80 @@
 
     <footer>
       <div class="social-bottom">
-        <a href="https://discord.gg/YOUR_INVITE" target="_blank"><i class="fa-brands fa-discord"></i></a>
-        <a href="https://twitch.tv/YOUR_USERNAME" target="_blank"><i class="fa-brands fa-twitch"></i></a>
-        <a href="https://tiktok.com/@YOUR_USERNAME" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-        <a href="https://instagram.com/YOUR_USERNAME" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="הכנס_קישור_כאן" target="_blank"><i class="fa-brands fa-discord"></i></a>
+        <a href="הכנס_קישור_כאן" target="_blank"><i class="fa-brands fa-twitch"></i></a>
+        <a href="הכנס_קישור_כאן" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="הכנס_קישור_כאן" target="_blank"><i class="fa-brands fa-instagram"></i></a>
       </div>
       <p class="copyright">© 2026 YardenRGS. All rights reserved.</p>
     </footer>
   </div>
 
   <script>
-    // תזמון העלמת מסך הפתיחה לאחר סיום הסיבוב
+    // יצירת אפקט הכוכבים בחלל
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for(let i = 0; i < 180; i++) {
+      stars.push({
+        x: (Math.random() - 0.5) * canvas.width * 2,
+        y: (Math.random() - 0.5) * canvas.height * 2,
+        z: Math.random() * canvas.width
+      });
+    }
+
+    function drawStars() {
+      ctx.fillStyle = '#04000a';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      for(let star of stars) {
+        star.z -= 5;
+        if(star.z <= 0) star.z = canvas.width;
+
+        let k = 128 / star.z;
+        let px = star.x * k + cx;
+        let py = star.y * k + cy;
+
+        if(px >= 0 && px < canvas.width && py >= 0 && py < canvas.height) {
+          let size = (1 - star.z / canvas.width) * 2.5;
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(px, py, size, 0, Math.PI * 2);
+          ctx.fill();
+
+          // קווי מהירות (Star Burst)
+          let prevK = 128 / (star.z + 12);
+          let ppx = star.x * prevK + cx;
+          let ppy = star.y * prevK + cy;
+          ctx.strokeStyle = 'rgba(168, 85, 247, 0.4)';
+          ctx.lineWidth = size;
+          ctx.beginPath();
+          ctx.moveTo(px, py);
+          ctx.lineTo(ppx, ppy);
+          ctx.stroke();
+        }
+      }
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+
+    // העלמת מסך הפתיחה לאחר סיום הסיבוב
     window.addEventListener('DOMContentLoaded', () => {
       const intro = document.getElementById('intro-overlay');
-      
-      // הלהביא את המסך להיעלם אחרי 1.6 שניות (אחרי הסיבוב ב-1.5 שניות)
       setTimeout(() => {
         intro.classList.add('intro-hidden');
-      }, 1600);
+      }, 1700);
     });
   </script>
 </body>
