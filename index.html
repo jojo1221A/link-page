@@ -1,416 +1,717 @@
-?<!DOCTYPE html>
-<html lang="he" dir="rtl">
+<!DOCTYPE html>
+<html lang="he">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YardenRGS - Links</title>
-  <!-- אייקונים של Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- פונט Google -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NyRoXx | Links</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#020006;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-5;
+    background:
+        radial-gradient(circle at 50% 30%,rgba(130,25,255,.25),transparent 35%),
+        radial-gradient(circle at 20% 80%,rgba(80,0,255,.18),transparent 30%),
+        #020006;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:-50%;
+    z-index:-4;
+    background:
+        radial-gradient(circle,rgba(140,35,255,.18) 0 2px,transparent 3px);
+    background-size:90px 90px;
+    animation:stars 18s linear infinite;
+}
+
+/* =========================
+   INTRO
+========================= */
+
+#intro{
+    height:100vh;
+    min-height:650px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at center,
+        rgba(120,20,255,.3),
+        rgba(20,0,40,.5) 35%,
+        #020006 75%);
+}
+
+.intro-content{
+    text-align:center;
+    position:relative;
+    z-index:5;
+    animation:introFloat 3s ease-in-out infinite alternate;
+}
+
+.logo-container{
+    width:320px;
+    height:320px;
+    position:relative;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.logo-container::before,
+.logo-container::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    border:2px solid rgba(157,52,255,.8);
+    box-shadow:
+        0 0 15px #8d28ff,
+        0 0 50px rgba(130,20,255,.7);
+}
+
+.logo-container::before{
+    width:280px;
+    height:280px;
+    animation:rotateRing 7s linear infinite;
+}
+
+.logo-container::after{
+    width:230px;
+    height:230px;
+    border-style:dashed;
+    animation:rotateRingReverse 5s linear infinite;
+}
+
+.logo{
+    width:210px;
+    height:210px;
+    border-radius:50%;
+    object-fit:cover;
+    position:relative;
+    z-index:3;
+
+    /* החלף את ה-URL הזה בלוגו שלך אם תרצה */
+    background:
+        linear-gradient(135deg,#18002d,#050008);
+
+    box-shadow:
+        0 0 20px #8d24ff,
+        0 0 60px rgba(128,20,255,.8),
+        0 0 120px rgba(100,0,255,.4);
+
+    animation:
+        logo360 7s linear infinite,
+        logoFloat 2.5s ease-in-out infinite alternate;
+}
+
+.logo-text{
+    margin-top:25px;
+    font-size:58px;
+    font-weight:900;
+    letter-spacing:-3px;
+    text-shadow:
+        0 0 10px #8d25ff,
+        0 0 35px #6515bd;
+}
+
+.logo-text span{
+    color:#9b35ff;
+}
+
+.subtitle{
+    margin-top:8px;
+    font-size:13px;
+    letter-spacing:7px;
+    color:#c88aff;
+}
+
+.loading{
+    width:220px;
+    height:4px;
+    margin:30px auto;
+    background:#241033;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.loading::after{
+    content:"";
+    display:block;
+    width:50%;
+    height:100%;
+    background:#9c30ff;
+    box-shadow:0 0 15px #a43aff;
+    animation:loading 2s ease-in-out infinite;
+}
+
+/* =========================
+   HOME
+========================= */
+
+#home{
+    min-height:100vh;
+    padding:70px 20px 40px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+
+    background:
+        radial-gradient(circle at 50% 15%,
+        rgba(130,25,255,.25),
+        transparent 35%);
+}
+
+.home-decoration{
+    position:absolute;
+    width:700px;
+    height:700px;
+    border-radius:50%;
+    border:1px solid rgba(145,35,255,.15);
+    box-shadow:
+        0 0 80px rgba(125,20,255,.12),
+        inset 0 0 80px rgba(125,20,255,.08);
+    animation:rotateRing 20s linear infinite;
+}
+
+.home-decoration.two{
+    width:500px;
+    height:500px;
+    animation:rotateRingReverse 15s linear infinite;
+}
+
+.profile{
+    text-align:center;
+    position:relative;
+    z-index:3;
+}
+
+.profile-logo{
+    width:145px;
+    height:145px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#08000d;
+
+    box-shadow:
+        0 0 20px #8d25ff,
+        0 0 60px rgba(130,20,255,.7);
+
+    animation:logo360 12s linear infinite;
+}
+
+.profile h1{
+    margin-top:18px;
+    font-size:45px;
+    font-weight:900;
+    text-shadow:0 0 25px #7620d8;
+}
+
+.profile h1 span{
+    color:#9c35ff;
+}
+
+.profile p{
+    margin-top:7px;
+    font-size:11px;
+    letter-spacing:5px;
+    color:#c78aff;
+}
+
+/* =========================
+   LINKS
+========================= */
+
+.links{
+    width:min(600px,94vw);
+    margin-top:35px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    position:relative;
+    z-index:5;
+}
+
+.link{
+    height:70px;
+    border:2px solid;
+    border-radius:12px;
+
+    display:grid;
+    grid-template-columns:55px 1fr 35px;
+    align-items:center;
+
+    padding:0 18px;
+
+    color:white;
+    text-decoration:none;
+
+    background:rgba(4,0,10,.78);
+    backdrop-filter:blur(8px);
+
+    font-size:20px;
+    font-weight:800;
+
+    position:relative;
+    overflow:hidden;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+.link::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:100%;
+    height:100%;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.15),
+            transparent
+        );
+    transition:.5s;
+}
+
+.link:hover::before{
+    left:120%;
+}
+
+.link:hover{
+    transform:translateY(-4px) scale(1.02);
+}
+
+.icon{
+    font-size:27px;
+    text-align:center;
+}
+
+.arrow{
+    text-align:right;
+    font-size:35px;
+    font-weight:300;
+}
+
+.kick{
+    border-color:#62ff00;
+    box-shadow:0 0 12px rgba(98,255,0,.5);
+}
+
+.kick:hover{
+    box-shadow:
+        0 0 20px #62ff00,
+        0 0 50px rgba(98,255,0,.35);
+}
+
+.youtube{
+    border-color:#ff2020;
+    box-shadow:0 0 12px rgba(255,32,32,.45);
+}
+
+.youtube:hover{
+    box-shadow:
+        0 0 20px #ff2020,
+        0 0 50px rgba(255,32,32,.35);
+}
+
+.tiktok{
+    border-color:#fff;
+    box-shadow:0 0 12px rgba(255,255,255,.35);
+}
+
+.tiktok:hover{
+    box-shadow:
+        0 0 20px white,
+        0 0 50px rgba(255,255,255,.25);
+}
+
+.twitch{
+    border-color:#9835ff;
+    box-shadow:0 0 12px rgba(152,53,255,.5);
+}
+
+.twitch:hover{
+    box-shadow:
+        0 0 20px #9835ff,
+        0 0 50px rgba(152,53,255,.4);
+}
+
+.instagram{
+    border-color:#ff55aa;
+    box-shadow:0 0 12px rgba(255,85,170,.4);
+}
+
+.instagram:hover{
+    box-shadow:
+        0 0 20px #ff55aa,
+        0 0 50px rgba(255,85,170,.35);
+}
+
+.donation{
+    border-color:#3195ff;
+    box-shadow:0 0 12px rgba(49,149,255,.45);
+}
+
+.donation:hover{
+    box-shadow:
+        0 0 20px #3195ff,
+        0 0 50px rgba(49,149,255,.35);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    margin-top:35px;
+    font-size:12px;
+    color:#aaa;
+    position:relative;
+    z-index:4;
+}
+
+footer span{
+    color:#9b35ff;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes logo360{
+    from{
+        transform:rotateY(0deg);
+    }
+    to{
+        transform:rotateY(360deg);
+    }
+}
+
+@keyframes rotateRing{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes rotateRingReverse{
+    from{
+        transform:rotate(360deg);
+    }
+    to{
+        transform:rotate(0deg);
+    }
+}
+
+@keyframes stars{
+    from{
+        transform:translate(0,0);
+    }
+    to{
+        transform:translate(180px,130px);
+    }
+}
+
+@keyframes introFloat{
+    from{
+        transform:translateY(-7px);
+    }
+    to{
+        transform:translateY(7px);
+    }
+}
+
+@keyframes logoFloat{
+    from{
+        margin-top:-5px;
+    }
+    to{
+        margin-top:5px;
+    }
+}
+
+@keyframes loading{
+    0%{
+        transform:translateX(-150%);
+    }
+    50%{
+        transform:translateX(120%);
+    }
+    100%{
+        transform:translateX(250%);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .logo-container{
+        width:270px;
+        height:270px;
     }
 
-    body {
-      background-color: #05010c;
-      background-image: 
-        radial-gradient(circle at 50% 20%, rgba(168, 85, 247, 0.4) 0%, transparent 50%),
-        radial-gradient(circle at 50% 80%, rgba(192, 38, 211, 0.25) 0%, transparent 60%);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow-x: hidden;
-      position: relative;
+    .logo-container::before{
+        width:240px;
+        height:240px;
     }
 
-    /* הילה סגולה פועמת ברקע הראשי */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(147, 51, 234, 0.15) 50%, transparent 70%);
-      filter: blur(60px);
-      z-index: 0;
-      animation: pulseAura 3.5s ease-in-out infinite alternate;
-      pointer-events: none;
+    .logo-container::after{
+        width:200px;
+        height:200px;
     }
 
-    @keyframes pulseAura {
-      0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.6; }
-      100% { transform: translate(-50%, -50%) scale(1.25); opacity: 1; }
+    .logo{
+        width:180px;
+        height:180px;
     }
 
-    /* --- מסך פתיחה (Intro) --- */
-    #intro-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #04000a;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
-      overflow: hidden;
+    .logo-text{
+        font-size:43px;
     }
 
-    /* קנווס לכוכבים */
-    #starfield {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
+    .profile-logo{
+        width:125px;
+        height:125px;
     }
 
-    /* סיבוב מטבע בלוגו בפתיח */
-    .intro-logo {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%; /* הופך את הריבוע לעיגול */
-      object-fit: cover;
-      box-shadow: 0 0 35px rgba(168, 85, 247, 0.9), 0 0 70px rgba(168, 85, 247, 0.5);
-      z-index: 2;
-      animation: coinSpin 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    .profile h1{
+        font-size:36px;
     }
 
-    @keyframes coinSpin {
-      0% {
-        transform: perspective(800px) rotateY(0deg) scale(0.4);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: perspective(800px) rotateY(360deg) scale(1);
-        opacity: 1;
-      }
+    .link{
+        height:62px;
+        font-size:17px;
+        grid-template-columns:48px 1fr 30px;
     }
-
-    .intro-hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    /* --- תוכן ראשי --- */
-    .container {
-      width: 100%;
-      max-width: 440px;
-      padding: 20px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 1;
-    }
-
-    .main-logo {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%; /* לוגו עגול ברקע הראשי */
-      object-fit: cover;
-      margin-bottom: 12px;
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.8);
-    }
-
-    .title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: #fff;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-    }
-
-    .title span {
-      color: #a855f7;
-      text-shadow: 0 0 15px #a855f7;
-    }
-
-    .subtitle {
-      font-size: 0.75rem;
-      letter-spacing: 3px;
-      color: #c084fc;
-      margin-bottom: 25px;
-      text-transform: uppercase;
-    }
-
-    /* --- קישורים --- */
-    .links-wrapper {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .link-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 13px 20px;
-      background: rgba(12, 5, 24, 0.85);
-      border-radius: 14px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.05rem;
-      transition: all 0.3s ease;
-      direction: ltr;
-      backdrop-filter: blur(5px);
-    }
-
-    .link-card i.icon {
-      font-size: 1.4rem;
-      width: 30px;
-      text-align: center;
-    }
-
-    .link-card span {
-      flex: 1;
-      text-align: center;
-    }
-
-    .link-card .arrow {
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-
-    .link-card:hover {
-      transform: translateY(-2px) scale(1.02);
-    }
-
-    /* כפתורי ניאון לפי התמונה */
-    .kick {
-      border: 1.5px solid #53fc18;
-      color: #53fc18;
-      box-shadow: 0 0 10px rgba(83, 252, 24, 0.25);
-    }
-    .kick:hover { box-shadow: 0 0 20px rgba(83, 252, 24, 0.7); }
-
-    .discord {
-      border: 1.5px solid #5865F2;
-      color: #5865F2;
-      box-shadow: 0 0 10px rgba(88, 101, 242, 0.25);
-    }
-    .discord:hover { box-shadow: 0 0 20px rgba(88, 101, 242, 0.7); }
-
-    .twitch {
-      border: 1.5px solid #a970ff;
-      color: #a970ff;
-      box-shadow: 0 0 10px rgba(169, 112, 255, 0.25);
-    }
-    .twitch:hover { box-shadow: 0 0 20px rgba(169, 112, 255, 0.7); }
-
-    .tiktok {
-      border: 1.5px solid #ffffff;
-      color: #ffffff;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
-    }
-    .tiktok:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.7); }
-
-    .instagram {
-      border: 1.5px solid #e1306c;
-      color: #f86f7b;
-      box-shadow: 0 0 10px rgba(225, 48, 108, 0.25);
-    }
-    .instagram:hover { box-shadow: 0 0 20px rgba(225, 48, 108, 0.7); }
-
-    .paypal {
-      border: 1.5px solid #0079c1;
-      color: #3b99fc;
-      box-shadow: 0 0 10px rgba(0, 121, 193, 0.25);
-    }
-    .paypal:hover { box-shadow: 0 0 20px rgba(0, 121, 193, 0.7); }
-
-    .whatsapp {
-      border: 1.5px solid #25d366;
-      color: #25d366;
-      box-shadow: 0 0 10px rgba(37, 211, 102, 0.25);
-    }
-    .whatsapp:hover { box-shadow: 0 0 20px rgba(37, 211, 102, 0.7); }
-
-    /* פוטר */
-    footer {
-      margin-top: 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .social-bottom {
-      display: flex;
-      gap: 18px;
-    }
-
-    .social-bottom a {
-      color: #c084fc;
-      font-size: 1.2rem;
-      transition: color 0.3s ease;
-    }
-
-    .social-bottom a:hover {
-      color: #fff;
-    }
-
-    .copyright {
-      font-size: 0.75rem;
-      color: #888;
-      direction: ltr;
-    }
-  </style>
+}
+</style>
 </head>
+
 <body>
 
-  <!-- מסך הפתיחה עם הכוכבים -->
-  <div id="intro-overlay">
-    <canvas id="starfield"></canvas>
-    <img src="logo.png" alt="YardenRGS Logo" class="intro-logo">
-  </div>
+<!-- =========================
+     INTRO
+========================= -->
 
-  <!-- תוכן ראשי -->
-  <div class="container">
-    <div class="header">
-      <img src="logo.png" alt="YardenRGS Logo" class="main-logo">
-      <h1 class="title">Yarden<span>RGS</span></h1>
-      <p class="subtitle">WELCOME TO MY LINKS</p>
+<section id="intro">
+
+    <div class="intro-content">
+
+        <div class="logo-container">
+
+            <!-- הלוגו -->
+            <div class="logo"></div>
+
+        </div>
+
+        <div class="logo-text">
+            NyRo<span>Xx</span>
+        </div>
+
+        <div class="subtitle">
+            WELCOME TO MY LINKS
+        </div>
+
+        <div class="loading"></div>
+
     </div>
 
-    <!-- הכנס את הקישורים שלך במקום המילים "הכנס_קישור_כאן" -->
-    <div class="links-wrapper">
-      <a href="הכנס_קישור_כאן" target="_blank" class="link-card kick">
-        <i class="fa-solid fa-k icon"></i>
-        <span>Kick</span>
-        <i class="fa-solid fa-chevron-right arrow"></i>
-      </a>
+</section>
 
-      <a href="הכנס_קישור_כאן" target="_blank" class="link-card discord">
-        <i class="fa-brands fa-discord icon"></i>
-        <span>Discord</span>
-        <i class="fa-solid fa-chevron-right arrow"></i>
-      </a>
 
-      <a href="הכנס_קישור_כאן" target="_blank" class="link-card twitch">
-        <i class="fa-brands fa-twitch icon"></i>
-        <span>Twitch</span>
-        <i class="fa-solid fa-chevron-right arrow"></i>
-      </a>
+<!-- =========================
+     HOME
+========================= -->
 
-      <a href="הכנס_קישור_כאן" target="_blank" class="link-card tiktok">
-        <i class="fa-brands fa-tiktok icon"></i>
-        <span>TikTok</span>
-        <i class="fa-solid fa-chevron-right arrow"></i>
-      </a>
+<section id="home">
 
-      <a href="הכנס_קישור_כאן" target="_blank" class="link-card instagram">
-        <i class="fa-brands fa-instagram icon"></i>
-        <span>Instagram</span>
-        <i class="fa-solid fa-chevron-right arrow"></i>
-      </a>
+    <div class="home-decoration"></div>
+    <div class="home-decoration two"></div>
 
-      <a href="הכנס_קישור_כאן" target="_blank" class="link-card paypal">
-        <i class="fa-brands fa-paypal icon"></i>
-        <span>PayPal</span>
-        <i class="fa-solid fa-chevron-right arrow"></i>
-      </a>
+    <div class="profile">
 
-      <a href="הכנס_קישור_כאן" target="_blank" class="link-card whatsapp">
-        <i class="fa-brands fa-whatsapp icon"></i>
-        <span>WhatsApp</span>
-        <i class="fa-solid fa-chevron-right arrow"></i>
-      </a>
+        <div class="profile-logo"></div>
+
+        <h1>
+            NyRo<span>Xx</span>
+        </h1>
+
+        <p>
+            WELCOME TO MY LINKS
+        </p>
+
     </div>
+
+
+    <div class="links">
+
+        <!-- KICK -->
+
+        <a
+            class="link kick"
+            href="https://kick.com/1nyrox"
+            target="_blank"
+            rel="noopener"
+        >
+            <span class="icon">K</span>
+            <span>Kick</span>
+            <span class="arrow">›</span>
+        </a>
+
+
+        <!-- YOUTUBE -->
+
+        <a
+            class="link youtube"
+            href="https://www.youtube.com/@1NyRoXx"
+            target="_blank"
+            rel="noopener"
+        >
+            <span class="icon">▶</span>
+            <span>YouTube</span>
+            <span class="arrow">›</span>
+        </a>
+
+
+        <!-- TIKTOK -->
+
+        <a
+            class="link tiktok"
+            href="https://www.tiktok.com/@1nyroxx"
+            target="_blank"
+            rel="noopener"
+        >
+            <span class="icon">♪</span>
+            <span>TikTok</span>
+            <span class="arrow">›</span>
+        </a>
+
+
+        <!-- TWITCH -->
+
+        <a
+            class="link twitch"
+            href="https://www.twitch.tv/1nyroxx"
+            target="_blank"
+            rel="noopener"
+        >
+            <span class="icon">▣</span>
+            <span>Twitch</span>
+            <span class="arrow">›</span>
+        </a>
+
+
+        <!-- INSTAGRAM -->
+
+        <a
+            class="link instagram"
+            href="https://www.instagram.com/nyroxgg1/?hl=en"
+            target="_blank"
+            rel="noopener"
+        >
+            <span class="icon">◎</span>
+            <span>Instagram</span>
+            <span class="arrow">›</span>
+        </a>
+
+
+        <!-- DONATIONS -->
+
+        <a
+            class="link donation"
+            href="https://botrix.live/k/1nyrox/tip"
+            target="_blank"
+            rel="noopener"
+        >
+            <span class="icon">P</span>
+            <span>Donations</span>
+            <span class="arrow">›</span>
+        </a>
+
+    </div>
+
 
     <footer>
-      <div class="social-bottom">
-        <a href="הכנס_קישור_כאן" target="_blank"><i class="fa-brands fa-discord"></i></a>
-        <a href="הכנס_קישור_כאן" target="_blank"><i class="fa-brands fa-twitch"></i></a>
-        <a href="הכנס_קישור_כאן" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-        <a href="הכנס_קישור_כאן" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-      </div>
-      <p class="copyright">© 2026 YardenRGS. All rights reserved.</p>
+        © 2026 <span>NyRoXx</span> — All Rights Reserved
     </footer>
-  </div>
 
-  <script>
-    // יצירת אפקט הכוכבים בחלל
-    const canvas = document.getElementById('starfield');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
+</section>
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
 
-    for(let i = 0; i < 180; i++) {
-      stars.push({
-        x: (Math.random() - 0.5) * canvas.width * 2,
-        y: (Math.random() - 0.5) * canvas.height * 2,
-        z: Math.random() * canvas.width
-      });
-    }
+<script>
 
-    function drawStars() {
-      ctx.fillStyle = '#04000a';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+/* =========================
+   INTRO -> HOME
+========================= */
 
-      const cx = canvas.width / 2;
-      const cy = canvas.height / 2;
+setTimeout(function(){
 
-      for(let star of stars) {
-        star.z -= 5;
-        if(star.z <= 0) star.z = canvas.width;
-
-        let k = 128 / star.z;
-        let px = star.x * k + cx;
-        let py = star.y * k + cy;
-
-        if(px >= 0 && px < canvas.width && py >= 0 && py < canvas.height) {
-          let size = (1 - star.z / canvas.width) * 2.5;
-          ctx.fillStyle = '#ffffff';
-          ctx.beginPath();
-          ctx.arc(px, py, size, 0, Math.PI * 2);
-          ctx.fill();
-
-          // קווי מהירות (Star Burst)
-          let prevK = 128 / (star.z + 12);
-          let ppx = star.x * prevK + cx;
-          let ppy = star.y * prevK + cy;
-          ctx.strokeStyle = 'rgba(168, 85, 247, 0.4)';
-          ctx.lineWidth = size;
-          ctx.beginPath();
-          ctx.moveTo(px, py);
-          ctx.lineTo(ppx, ppy);
-          ctx.stroke();
-        }
-      }
-      requestAnimationFrame(drawStars);
-    }
-    drawStars();
-
-    // העלמת מסך הפתיחה לאחר סיום הסיבוב
-    window.addEventListener('DOMContentLoaded', () => {
-      const intro = document.getElementById('intro-overlay');
-      setTimeout(() => {
-        intro.classList.add('intro-hidden');
-      }, 1700);
+    document.getElementById("home").scrollIntoView({
+        behavior:"smooth"
     });
-  </script>
+
+},4000);
+
+
+/* =========================
+   MOUSE PARALLAX
+========================= */
+
+document.addEventListener("mousemove",function(e){
+
+    const x =
+        (e.clientX / window.innerWidth - .5) * 12;
+
+    const y =
+        (e.clientY / window.innerHeight - .5) * 12;
+
+    const intro =
+        document.querySelector(".intro-content");
+
+    intro.style.transform =
+        "translate(" + x + "px," + y + "px)";
+
+});
+
+</script>
+
 </body>
 </html>
