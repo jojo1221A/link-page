@@ -31,7 +31,7 @@ body {
 }
 
 /* =========================
-   STARS
+   MOVING STARS
 ========================= */
 
 .stars,
@@ -46,7 +46,7 @@ body {
 
 .stars {
     background-image:
-        radial-gradient(circle, #fff 1px, transparent 1.5px),
+        radial-gradient(circle, #ffffff 1px, transparent 1.5px),
         radial-gradient(circle, #c85cff 1px, transparent 1.5px),
         radial-gradient(circle, #8d00ff 1px, transparent 1.5px);
 
@@ -61,12 +61,12 @@ body {
         120px 40px;
 
     animation: starsMove 30s linear infinite;
-    opacity: .85;
+    opacity: 0.85;
 }
 
 .stars2 {
     background-image:
-        radial-gradient(circle, #fff 1px, transparent 1.3px),
+        radial-gradient(circle, #ffffff 1px, transparent 1.3px),
         radial-gradient(circle, #d879ff 1px, transparent 1.3px);
 
     background-size:
@@ -78,7 +78,7 @@ body {
         20px 140px;
 
     animation: starsMove2 48s linear infinite;
-    opacity: .4;
+    opacity: 0.4;
 }
 
 @keyframes starsMove {
@@ -107,10 +107,11 @@ body {
     position: fixed;
     inset: 0;
     z-index: 9999;
+
     background:
         radial-gradient(
             circle at center,
-            rgba(150, 0, 255, .18),
+            rgba(150, 0, 255, 0.18),
             transparent 32%
         ),
         #020003;
@@ -138,18 +139,29 @@ body {
 
 .intro-stars span {
     position: absolute;
+
     width: 2px;
     height: 2px;
+
     border-radius: 50%;
+
     background: white;
-    box-shadow: 0 0 6px #b900ff;
-    animation: introStars 4s linear infinite;
+
+    box-shadow:
+        0 0 6px #b900ff;
+
+    animation:
+        introStars 4s linear infinite;
 }
 
 @keyframes introStars {
+
     from {
-        transform: translate(0, 0) scale(.5);
-        opacity: .2;
+        transform:
+            translate(0, 0)
+            scale(0.5);
+
+        opacity: 0.2;
     }
 
     50% {
@@ -157,15 +169,21 @@ body {
     }
 
     to {
-        transform: translate(var(--tx), var(--ty)) scale(1.8);
+        transform:
+            translate(var(--tx), var(--ty))
+            scale(1.8);
+
         opacity: 0;
     }
 }
 
-/* Coin */
+/* =========================
+   COIN
+========================= */
 
 .coin {
     position: relative;
+
     width: 280px;
     height: 280px;
 
@@ -173,15 +191,16 @@ body {
     align-items: center;
     justify-content: center;
 
+    transform-style: preserve-3d;
+
     animation:
         coinIntro 1s ease-out forwards,
-        coinSpin 2.8s cubic-bezier(.2,.7,.2,1) 0.9s forwards;
-
-    transform-style: preserve-3d;
+        coinSpin 1.8s cubic-bezier(.2,.7,.2,1) 0.9s forwards;
 }
 
 .coin::before {
     content: "";
+
     position: absolute;
     inset: 0;
 
@@ -197,8 +216,8 @@ body {
         );
 
     box-shadow:
-        0 0 18px rgba(180, 40, 255, .8),
-        0 0 50px rgba(150, 0, 255, .45);
+        0 0 18px rgba(180, 40, 255, 0.8),
+        0 0 50px rgba(150, 0, 255, 0.45);
 
     z-index: -1;
 }
@@ -208,6 +227,7 @@ body {
     height: 94%;
 
     object-fit: cover;
+
     border-radius: 50%;
 
     background: #040006;
@@ -215,15 +235,15 @@ body {
     border: 4px solid #b32cff;
 
     box-shadow:
-        inset 0 0 20px rgba(255,255,255,.08),
-        0 0 18px rgba(170,0,255,.5);
+        inset 0 0 20px rgba(255,255,255,0.08),
+        0 0 18px rgba(170,0,255,0.5);
 
     backface-visibility: hidden;
 }
 
 @keyframes coinIntro {
     0% {
-        transform: scale(.1);
+        transform: scale(0.1);
         opacity: 0;
     }
 
@@ -233,21 +253,15 @@ body {
     }
 }
 
+/* ONE SINGLE ROTATION */
+
 @keyframes coinSpin {
     0% {
         transform: rotateY(0deg);
     }
 
-    30% {
-        transform: rotateY(400deg);
-    }
-
-    70% {
-        transform: rotateY(820deg);
-    }
-
     100% {
-        transform: rotateY(1080deg);
+        transform: rotateY(360deg);
     }
 }
 
@@ -289,6 +303,7 @@ body {
 .logo-wrap {
     width: 190px;
     height: 190px;
+
     margin: 0 auto 20px;
 
     border-radius: 50%;
@@ -304,8 +319,8 @@ body {
         );
 
     box-shadow:
-        0 0 20px rgba(170,0,255,.8),
-        0 0 45px rgba(150,0,255,.3);
+        0 0 20px rgba(170,0,255,0.8),
+        0 0 45px rgba(150,0,255,0.3);
 }
 
 .logo {
@@ -324,6 +339,7 @@ body {
     height: 100%;
 
     object-fit: cover;
+
     display: block;
 }
 
@@ -333,8 +349,11 @@ body {
 
 h1 {
     font-size: clamp(42px, 8vw, 72px);
+
     font-weight: 900;
+
     margin-bottom: 8px;
+
     letter-spacing: -2px;
 }
 
@@ -342,13 +361,14 @@ h1 span {
     color: var(--purple2);
 
     text-shadow:
-        0 0 16px rgba(207,84,255,.5);
+        0 0 16px rgba(207,84,255,0.5);
 }
 
 .subtitle {
     color: #d171ff;
 
     font-size: 14px;
+
     font-weight: 800;
 
     letter-spacing: 6px;
@@ -368,7 +388,7 @@ h1 span {
 
     box-shadow:
         0 0 10px #ae00ff,
-        0 0 25px rgba(174,0,255,.7);
+        0 0 25px rgba(174,0,255,0.7);
 }
 
 /* =========================
@@ -401,16 +421,16 @@ h1 span {
     border-radius: 18px;
 
     background:
-        rgba(3,0,8,.88);
+        rgba(3,0,8,0.88);
 
     border: 2px solid currentColor;
 
     color: white;
 
     transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
 .link:hover {
@@ -419,29 +439,35 @@ h1 span {
         scale(1.01);
 
     background:
-        rgba(16,3,25,.95);
+        rgba(16,3,25,0.95);
 }
 
 .icon {
     display: flex;
+
     align-items: center;
+
     justify-content: flex-start;
 }
 
 .icon svg {
     width: 37px;
     height: 37px;
+
     fill: currentColor;
 }
 
 .name {
     text-align: center;
+
     font-size: 22px;
+
     font-weight: 800;
 }
 
 .arrow {
     text-align: right;
+
     font-size: 32px;
 }
 
@@ -478,6 +504,45 @@ h1 span {
 }
 
 /* =========================
+   HOVER COLORS
+========================= */
+
+.kick:hover {
+    box-shadow:
+        0 0 26px rgba(83,255,0,0.38);
+}
+
+.youtube:hover {
+    box-shadow:
+        0 0 26px rgba(255,32,32,0.38);
+}
+
+.discord:hover {
+    box-shadow:
+        0 0 26px rgba(139,92,255,0.38);
+}
+
+.tiktok:hover {
+    box-shadow:
+        0 0 26px rgba(0,242,234,0.28);
+}
+
+.twitch:hover {
+    box-shadow:
+        0 0 26px rgba(166,76,255,0.38);
+}
+
+.instagram:hover {
+    box-shadow:
+        0 0 26px rgba(255,91,157,0.38);
+}
+
+.paypal:hover {
+    box-shadow:
+        0 0 26px rgba(38,151,255,0.38);
+}
+
+/* =========================
    FOOTER
 ========================= */
 
@@ -491,6 +556,7 @@ footer {
 
 footer span {
     color: var(--purple2);
+
     font-weight: 800;
 }
 
@@ -516,6 +582,7 @@ footer span {
 
     .subtitle {
         font-size: 11px;
+
         letter-spacing: 4px;
     }
 
@@ -550,7 +617,10 @@ footer span {
 
 <body>
 
-<!-- INTRO -->
+<!-- =========================
+     INTRO
+========================= -->
+
 <div id="intro">
 
     <div class="intro-stars">
@@ -579,7 +649,9 @@ footer span {
 </div>
 
 
-<!-- WEBSITE -->
+<!-- =========================
+     MAIN SITE
+========================= -->
 
 <div id="site">
 
@@ -620,14 +692,17 @@ footer span {
                 class="link kick"
                 href="#"
                 target="_blank"
+                rel="noopener noreferrer"
             >
 
                 <div class="icon">
 
                     <svg viewBox="0 0 64 64">
+
                         <path
                             d="M14 12h12v16h8V12h12v40H34V40h-8v12H14z"
                         />
+
                     </svg>
 
                 </div>
@@ -649,6 +724,7 @@ footer span {
                 class="link youtube"
                 href="#"
                 target="_blank"
+                rel="noopener noreferrer"
             >
 
                 <div class="icon">
@@ -680,6 +756,7 @@ footer span {
                 class="link discord"
                 href="#"
                 target="_blank"
+                rel="noopener noreferrer"
             >
 
                 <div class="icon">
@@ -711,6 +788,7 @@ footer span {
                 class="link tiktok"
                 href="#"
                 target="_blank"
+                rel="noopener noreferrer"
             >
 
                 <div class="icon">
@@ -742,6 +820,7 @@ footer span {
                 class="link twitch"
                 href="#"
                 target="_blank"
+                rel="noopener noreferrer"
             >
 
                 <div class="icon">
@@ -773,6 +852,7 @@ footer span {
                 class="link instagram"
                 href="#"
                 target="_blank"
+                rel="noopener noreferrer"
             >
 
                 <div class="icon">
@@ -780,7 +860,7 @@ footer span {
                     <svg viewBox="0 0 24 24">
 
                         <path
-                            d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zm5.2-3.1a1.1 1.1 0 1 1-1.1 1.1 1.1 0 0 1-1.1 1.1 1.1 0 0 1 1.1-1.1z"
+                            d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zm5.2-3.1a1.1 1.1 0 1 1-1.1 1.1 1.1 0 0 1-1.1-1.1 1.1 1.1 0 0 1 1.1-1.1z"
                         />
 
                     </svg>
@@ -804,6 +884,7 @@ footer span {
                 class="link paypal"
                 href="#"
                 target="_blank"
+                rel="noopener noreferrer"
             >
 
                 <div class="icon">
@@ -842,21 +923,28 @@ footer span {
 
 <script>
 
-/* =========================
-   INTRO TIMING
-========================= */
-
 window.addEventListener("load", function() {
 
-    const intro = document.getElementById("intro");
-    const site = document.getElementById("site");
+    const intro =
+        document.getElementById("intro");
+
+    const site =
+        document.getElementById("site");
+
+    /*
+      Intro:
+      0.0s - 1.0s   logo appears
+      0.9s - 2.7s   ONE 360° rotation
+      4.0s          website starts
+    */
 
     setTimeout(function() {
 
         intro.classList.add("hide");
+
         site.classList.add("show");
 
-    }, 4300);
+    }, 4000);
 
 });
 
