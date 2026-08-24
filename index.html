@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,472 +8,243 @@
 <style>
 *{
     box-sizing:border-box;
-    margin:0;
-    padding:0;
 }
 
-html{
-    scroll-behavior:smooth;
+html,body{
+    margin:0;
+    width:100%;
+    min-height:100%;
+    background:#000;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-    background:#020006;
-    color:white;
-    font-family:Arial,Helvetica,sans-serif;
     overflow-x:hidden;
 }
 
-/* =========================
-   BACKGROUND
-========================= */
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-5;
-    background:
-        radial-gradient(circle at 50% 30%,rgba(130,25,255,.25),transparent 35%),
-        radial-gradient(circle at 20% 80%,rgba(80,0,255,.18),transparent 30%),
-        #020006;
-}
-
-body::after{
-    content:"";
-    position:fixed;
-    inset:-50%;
-    z-index:-4;
-    background:
-        radial-gradient(circle,rgba(140,35,255,.18) 0 2px,transparent 3px);
-    background-size:90px 90px;
-    animation:stars 18s linear infinite;
-}
-
-/* =========================
-   INTRO
-========================= */
-
-#intro{
-    height:100vh;
-    min-height:650px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+.site{
     position:relative;
-    overflow:hidden;
-    background:
-        radial-gradient(circle at center,
-        rgba(120,20,255,.3),
-        rgba(20,0,40,.5) 35%,
-        #020006 75%);
-}
-
-.intro-content{
-    text-align:center;
-    position:relative;
-    z-index:5;
-    animation:introFloat 3s ease-in-out infinite alternate;
-}
-
-.logo-container{
-    width:320px;
-    height:320px;
-    position:relative;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.logo-container::before,
-.logo-container::after{
-    content:"";
-    position:absolute;
-    border-radius:50%;
-    border:2px solid rgba(157,52,255,.8);
-    box-shadow:
-        0 0 15px #8d28ff,
-        0 0 50px rgba(130,20,255,.7);
-}
-
-.logo-container::before{
-    width:280px;
-    height:280px;
-    animation:rotateRing 7s linear infinite;
-}
-
-.logo-container::after{
-    width:230px;
-    height:230px;
-    border-style:dashed;
-    animation:rotateRingReverse 5s linear infinite;
-}
-
-.logo{
-    width:210px;
-    height:210px;
-    border-radius:50%;
-    object-fit:cover;
-    position:relative;
-    z-index:3;
-
-    /* החלף את ה-URL הזה בלוגו שלך אם תרצה */
-    background:
-        linear-gradient(135deg,#18002d,#050008);
-
-    box-shadow:
-        0 0 20px #8d24ff,
-        0 0 60px rgba(128,20,255,.8),
-        0 0 120px rgba(100,0,255,.4);
-
-    animation:
-        logo360 7s linear infinite,
-        logoFloat 2.5s ease-in-out infinite alternate;
-}
-
-.logo-text{
-    margin-top:25px;
-    font-size:58px;
-    font-weight:900;
-    letter-spacing:-3px;
-    text-shadow:
-        0 0 10px #8d25ff,
-        0 0 35px #6515bd;
-}
-
-.logo-text span{
-    color:#9b35ff;
-}
-
-.subtitle{
-    margin-top:8px;
-    font-size:13px;
-    letter-spacing:7px;
-    color:#c88aff;
-}
-
-.loading{
-    width:220px;
-    height:4px;
-    margin:30px auto;
-    background:#241033;
-    border-radius:10px;
-    overflow:hidden;
-}
-
-.loading::after{
-    content:"";
-    display:block;
-    width:50%;
-    height:100%;
-    background:#9c30ff;
-    box-shadow:0 0 15px #a43aff;
-    animation:loading 2s ease-in-out infinite;
-}
-
-/* =========================
-   HOME
-========================= */
-
-#home{
     min-height:100vh;
-    padding:70px 20px 40px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    position:relative;
+    width:100%;
     overflow:hidden;
+    background:#000;
+}
+
+/* BACKGROUND */
+
+.art{
+    position:absolute;
+    inset:-3%;
+    width:106%;
+    height:106%;
+    object-fit:cover;
+    object-position:center;
+
+    animation:spaceMove 14s ease-in-out infinite alternate;
+
+    filter:
+        saturate(1.12)
+        brightness(.92);
+}
+
+/* DARK OVERLAY */
+
+.glow{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:2;
 
     background:
-        radial-gradient(circle at 50% 15%,
-        rgba(130,25,255,.25),
-        transparent 35%);
+        radial-gradient(
+            circle at 50% 42%,
+            transparent 20%,
+            rgba(0,0,0,.08) 45%,
+            rgba(0,0,0,.55) 100%
+        );
 }
 
-.home-decoration{
+/* MOVING STARS */
+
+.starfield{
     position:absolute;
-    width:700px;
-    height:700px;
-    border-radius:50%;
-    border:1px solid rgba(145,35,255,.15);
-    box-shadow:
-        0 0 80px rgba(125,20,255,.12),
-        inset 0 0 80px rgba(125,20,255,.08);
-    animation:rotateRing 20s linear infinite;
-}
-
-.home-decoration.two{
-    width:500px;
-    height:500px;
-    animation:rotateRingReverse 15s linear infinite;
-}
-
-.profile{
-    text-align:center;
-    position:relative;
+    inset:-50%;
     z-index:3;
+    pointer-events:none;
+    opacity:.55;
+
+    background-image:
+        radial-gradient(
+            circle,
+            #fff 1px,
+            transparent 1.7px
+        ),
+        radial-gradient(
+            circle,
+            #ad5cff 1px,
+            transparent 1.7px
+        );
+
+    background-size:
+        110px 110px,
+        180px 180px;
+
+    animation:stars 20s linear infinite;
 }
 
-.profile-logo{
-    width:145px;
-    height:145px;
-    border-radius:50%;
-    object-fit:cover;
-    background:#08000d;
-
-    box-shadow:
-        0 0 20px #8d25ff,
-        0 0 60px rgba(130,20,255,.7);
-
-    animation:logo360 12s linear infinite;
-}
-
-.profile h1{
-    margin-top:18px;
-    font-size:45px;
-    font-weight:900;
-    text-shadow:0 0 25px #7620d8;
-}
-
-.profile h1 span{
-    color:#9c35ff;
-}
-
-.profile p{
-    margin-top:7px;
-    font-size:11px;
-    letter-spacing:5px;
-    color:#c78aff;
-}
-
-/* =========================
-   LINKS
-========================= */
+/* LINKS */
 
 .links{
-    width:min(600px,94vw);
-    margin-top:35px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    position:relative;
+    position:absolute;
     z-index:5;
+
+    left:32.7%;
+    width:34.8%;
+
+    top:52.1%;
+    height:39%;
 }
 
-.link{
-    height:70px;
-    border:2px solid;
+/* INVISIBLE CLICK AREAS */
+
+.hotspot{
+    position:absolute;
+
+    left:0;
+    width:100%;
+    height:12.4%;
+
     border-radius:12px;
 
-    display:grid;
-    grid-template-columns:55px 1fr 35px;
-    align-items:center;
+    background:transparent;
 
-    padding:0 18px;
-
-    color:white;
-    text-decoration:none;
-
-    background:rgba(4,0,10,.78);
-    backdrop-filter:blur(8px);
-
-    font-size:20px;
-    font-weight:800;
-
-    position:relative;
-    overflow:hidden;
+    outline:none;
+    cursor:pointer;
 
     transition:
-        transform .25s ease,
-        box-shadow .25s ease,
-        background .25s ease;
+        .22s ease;
 }
 
-.link::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:-120%;
-    width:100%;
-    height:100%;
+/* HOVER EFFECT */
+
+.hotspot:hover{
     background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.15),
-            transparent
-        );
-    transition:.5s;
+        rgba(150,40,255,.08);
+
+    box-shadow:
+        0 0 28px rgba(165,40,255,.45),
+        inset 0 0 15px rgba(255,255,255,.04);
+
+    transform:scale(1.015);
 }
 
-.link:hover::before{
-    left:120%;
+/* BUTTON POSITIONS */
+
+.h1{
+    top:0;
 }
 
-.link:hover{
-    transform:translateY(-4px) scale(1.02);
+.h2{
+    top:16.2%;
 }
 
-.icon{
-    font-size:27px;
+.h3{
+    top:32.3%;
+}
+
+.h4{
+    top:48.5%;
+}
+
+.h5{
+    top:64.7%;
+}
+
+.h6{
+    top:80.9%;
+}
+
+/* FOOTER */
+
+.credit{
+    position:absolute;
+
+    z-index:6;
+
+    bottom:1.8%;
+    left:0;
+
+    width:100%;
+
     text-align:center;
+
+    color:
+        rgba(255,255,255,.88);
+
+    font-size:
+        clamp(9px,1vw,14px);
+
+    text-shadow:
+        0 0 10px #7c21ff;
+
+    pointer-events:none;
 }
 
-.arrow{
-    text-align:right;
-    font-size:35px;
-    font-weight:300;
-}
-
-.kick{
-    border-color:#62ff00;
-    box-shadow:0 0 12px rgba(98,255,0,.5);
-}
-
-.kick:hover{
-    box-shadow:
-        0 0 20px #62ff00,
-        0 0 50px rgba(98,255,0,.35);
-}
-
-.youtube{
-    border-color:#ff2020;
-    box-shadow:0 0 12px rgba(255,32,32,.45);
-}
-
-.youtube:hover{
-    box-shadow:
-        0 0 20px #ff2020,
-        0 0 50px rgba(255,32,32,.35);
-}
-
-.tiktok{
-    border-color:#fff;
-    box-shadow:0 0 12px rgba(255,255,255,.35);
-}
-
-.tiktok:hover{
-    box-shadow:
-        0 0 20px white,
-        0 0 50px rgba(255,255,255,.25);
-}
-
-.twitch{
-    border-color:#9835ff;
-    box-shadow:0 0 12px rgba(152,53,255,.5);
-}
-
-.twitch:hover{
-    box-shadow:
-        0 0 20px #9835ff,
-        0 0 50px rgba(152,53,255,.4);
-}
-
-.instagram{
-    border-color:#ff55aa;
-    box-shadow:0 0 12px rgba(255,85,170,.4);
-}
-
-.instagram:hover{
-    box-shadow:
-        0 0 20px #ff55aa,
-        0 0 50px rgba(255,85,170,.35);
-}
-
-.donation{
-    border-color:#3195ff;
-    box-shadow:0 0 12px rgba(49,149,255,.45);
-}
-
-.donation:hover{
-    box-shadow:
-        0 0 20px #3195ff,
-        0 0 50px rgba(49,149,255,.35);
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-    margin-top:35px;
-    font-size:12px;
-    color:#aaa;
-    position:relative;
-    z-index:4;
-}
-
-footer span{
-    color:#9b35ff;
+.credit span{
+    color:#a33cff;
 }
 
 /* =========================
    ANIMATIONS
 ========================= */
 
-@keyframes logo360{
-    from{
-        transform:rotateY(0deg);
-    }
-    to{
-        transform:rotateY(360deg);
-    }
-}
+@keyframes spaceMove{
 
-@keyframes rotateRing{
-    from{
-        transform:rotate(0deg);
+    0%{
+        transform:
+            scale(1)
+            translate3d(0,0,0);
     }
-    to{
-        transform:rotate(360deg);
-    }
-}
 
-@keyframes rotateRingReverse{
-    from{
-        transform:rotate(360deg);
-    }
-    to{
-        transform:rotate(0deg);
+    100%{
+        transform:
+            scale(1.055)
+            translate3d(-.6%,.4%,0);
     }
 }
 
 @keyframes stars{
+
     from{
-        transform:translate(0,0);
+        transform:
+            translate(0,0)
+            rotate(0);
     }
+
     to{
-        transform:translate(180px,130px);
+        transform:
+            translate(140px,110px)
+            rotate(2deg);
     }
 }
 
-@keyframes introFloat{
-    from{
-        transform:translateY(-7px);
-    }
-    to{
-        transform:translateY(7px);
-    }
-}
+/* =========================
+   TABLET
+========================= */
 
-@keyframes logoFloat{
-    from{
-        margin-top:-5px;
-    }
-    to{
-        margin-top:5px;
-    }
-}
+@media(max-width:900px){
 
-@keyframes loading{
-    0%{
-        transform:translateX(-150%);
+    .art{
+        object-position:center top;
     }
-    50%{
-        transform:translateX(120%);
-    }
-    100%{
-        transform:translateX(250%);
+
+    .links{
+        left:24%;
+        width:52%;
+
+        top:51.5%;
+        height:40%;
     }
 }
 
@@ -483,43 +254,54 @@ footer span{
 
 @media(max-width:600px){
 
-    .logo-container{
-        width:270px;
-        height:270px;
+    .art{
+        width:auto;
+        height:100%;
+
+        left:50%;
+
+        transform:
+            translateX(-50%);
+
+        animation:
+            mobileMove 12s ease-in-out infinite alternate;
     }
 
-    .logo-container::before{
-        width:240px;
-        height:240px;
+    .links{
+        left:18%;
+        width:64%;
+
+        top:51%;
+        height:40%;
     }
 
-    .logo-container::after{
-        width:200px;
-        height:200px;
+    .hotspot{
+        border-radius:8px;
+    }
+}
+
+@keyframes mobileMove{
+
+    from{
+        transform:
+            translateX(-51%)
+            scale(1.01);
     }
 
-    .logo{
-        width:180px;
-        height:180px;
+    to{
+        transform:
+            translateX(-49%)
+            scale(1.045);
     }
+}
 
-    .logo-text{
-        font-size:43px;
-    }
+/* REDUCE MOTION */
 
-    .profile-logo{
-        width:125px;
-        height:125px;
-    }
+@media(prefers-reduced-motion:reduce){
 
-    .profile h1{
-        font-size:36px;
-    }
-
-    .link{
-        height:62px;
-        font-size:17px;
-        grid-template-columns:48px 1fr 30px;
+    .art,
+    .starfield{
+        animation:none;
     }
 }
 </style>
@@ -527,191 +309,111 @@ footer span{
 
 <body>
 
-<!-- =========================
-     INTRO
-========================= -->
+<div class="site">
 
-<section id="intro">
+    <!--
+    שים את התמונה בשם:
+    background.png
 
-    <div class="intro-content">
+    בתוך:
+    assets/background.png
+    -->
 
-        <div class="logo-container">
+    <img
+        class="art"
+        src="assets/background.png"
+        alt="NyRoXx RGS Links"
+    >
 
-            <!-- הלוגו -->
-            <div class="logo"></div>
+    <div class="glow"></div>
 
-        </div>
-
-        <div class="logo-text">
-            NyRo<span>Xx</span>
-        </div>
-
-        <div class="subtitle">
-            WELCOME TO MY LINKS
-        </div>
-
-        <div class="loading"></div>
-
-    </div>
-
-</section>
+    <div class="starfield"></div>
 
 
-<!-- =========================
-     HOME
-========================= -->
+    <!-- LINKS -->
 
-<section id="home">
-
-    <div class="home-decoration"></div>
-    <div class="home-decoration two"></div>
-
-    <div class="profile">
-
-        <div class="profile-logo"></div>
-
-        <h1>
-            NyRo<span>Xx</span>
-        </h1>
-
-        <p>
-            WELCOME TO MY LINKS
-        </p>
-
-    </div>
-
-
-    <div class="links">
+    <nav
+        class="links"
+        aria-label="Social links"
+    >
 
         <!-- KICK -->
 
         <a
-            class="link kick"
+            class="hotspot h1"
             href="https://kick.com/1nyrox"
             target="_blank"
             rel="noopener"
-        >
-            <span class="icon">K</span>
-            <span>Kick</span>
-            <span class="arrow">›</span>
-        </a>
+            aria-label="Kick"
+        ></a>
 
 
         <!-- YOUTUBE -->
 
         <a
-            class="link youtube"
+            class="hotspot h2"
             href="https://www.youtube.com/@1NyRoXx"
             target="_blank"
             rel="noopener"
-        >
-            <span class="icon">▶</span>
-            <span>YouTube</span>
-            <span class="arrow">›</span>
-        </a>
+            aria-label="YouTube"
+        ></a>
 
 
         <!-- TIKTOK -->
 
         <a
-            class="link tiktok"
+            class="hotspot h3"
             href="https://www.tiktok.com/@1nyroxx"
             target="_blank"
             rel="noopener"
-        >
-            <span class="icon">♪</span>
-            <span>TikTok</span>
-            <span class="arrow">›</span>
-        </a>
+            aria-label="TikTok"
+        ></a>
 
 
         <!-- TWITCH -->
 
         <a
-            class="link twitch"
+            class="hotspot h4"
             href="https://www.twitch.tv/1nyroxx"
             target="_blank"
             rel="noopener"
-        >
-            <span class="icon">▣</span>
-            <span>Twitch</span>
-            <span class="arrow">›</span>
-        </a>
+            aria-label="Twitch"
+        ></a>
 
 
         <!-- INSTAGRAM -->
 
         <a
-            class="link instagram"
+            class="hotspot h5"
             href="https://www.instagram.com/nyroxgg1/?hl=en"
             target="_blank"
             rel="noopener"
-        >
-            <span class="icon">◎</span>
-            <span>Instagram</span>
-            <span class="arrow">›</span>
-        </a>
+            aria-label="Instagram"
+        ></a>
 
 
         <!-- DONATIONS -->
 
         <a
-            class="link donation"
+            class="hotspot h6"
             href="https://botrix.live/k/1nyrox/tip"
             target="_blank"
             rel="noopener"
-        >
-            <span class="icon">P</span>
-            <span>Donations</span>
-            <span class="arrow">›</span>
-        </a>
+            aria-label="Donations"
+        ></a>
 
+    </nav>
+
+
+    <!-- FOOTER -->
+
+    <div class="credit">
+        © 2026
+        <span>NyRoXx</span>.
+        All rights reserved.
     </div>
 
-
-    <footer>
-        © 2026 <span>NyRoXx</span> — All Rights Reserved
-    </footer>
-
-</section>
-
-
-<script>
-
-/* =========================
-   INTRO -> HOME
-========================= */
-
-setTimeout(function(){
-
-    document.getElementById("home").scrollIntoView({
-        behavior:"smooth"
-    });
-
-},4000);
-
-
-/* =========================
-   MOUSE PARALLAX
-========================= */
-
-document.addEventListener("mousemove",function(e){
-
-    const x =
-        (e.clientX / window.innerWidth - .5) * 12;
-
-    const y =
-        (e.clientY / window.innerHeight - .5) * 12;
-
-    const intro =
-        document.querySelector(".intro-content");
-
-    intro.style.transform =
-        "translate(" + x + "px," + y + "px)";
-
-});
-
-</script>
+</div>
 
 </body>
 </html>
