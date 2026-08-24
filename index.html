@@ -7,10 +7,9 @@
 
 <style>
 :root {
-    --purple: #9b00ff;
-    --purple2: #c04cff;
-    --bg: #030006;
-    --card: rgba(5, 2, 10, 0.82);
+    --purple: #a100ff;
+    --purple-light: #d05cff;
+    --bg: #020004;
 }
 
 * {
@@ -19,70 +18,74 @@
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     min-height: 100vh;
-    background:
-        radial-gradient(circle at 50% 10%, rgba(140, 0, 255, 0.16), transparent 30%),
-        radial-gradient(circle at 10% 80%, rgba(100, 0, 255, 0.10), transparent 25%),
-        var(--bg);
-    color: white;
     font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    background:
+        radial-gradient(circle at 50% 15%, rgba(145, 0, 255, 0.20), transparent 32%),
+        radial-gradient(circle at 15% 80%, rgba(80, 0, 180, 0.16), transparent 28%),
+        #020004;
     overflow-x: hidden;
 }
 
 /* MOVING STARS */
-#stars,
-#stars2 {
+.stars,
+.stars2 {
     position: fixed;
     inset: -100%;
     width: 300%;
     height: 300%;
     pointer-events: none;
     z-index: 0;
-    background-repeat: repeat;
 }
 
-#stars {
-    opacity: 0.8;
+.stars {
     background-image:
         radial-gradient(circle, #ffffff 1px, transparent 1.5px),
-        radial-gradient(circle, #a900ff 1px, transparent 1.5px),
-        radial-gradient(circle, #6d00ff 1px, transparent 1.5px);
-    background-size: 150px 150px, 210px 210px, 280px 280px;
-    background-position: 0 0, 50px 80px, 120px 40px;
-    animation: starsMove 35s linear infinite;
+        radial-gradient(circle, #b84cff 1px, transparent 1.5px),
+        radial-gradient(circle, #7a00ff 1px, transparent 1.5px);
+    background-size:
+        145px 145px,
+        210px 210px,
+        280px 280px;
+    background-position:
+        0 0,
+        50px 80px,
+        120px 40px;
+    animation: moveStars 32s linear infinite;
+    opacity: 0.9;
 }
 
-#stars2 {
-    opacity: 0.45;
-    transform: scale(1.2);
+.stars2 {
     background-image:
         radial-gradient(circle, #ffffff 0.8px, transparent 1.2px),
-        radial-gradient(circle, #cc66ff 0.8px, transparent 1.2px);
-    background-size: 190px 190px, 320px 320px;
-    background-position: 80px 30px, 20px 140px;
-    animation: starsMove2 55s linear infinite;
+        radial-gradient(circle, #cf75ff 0.8px, transparent 1.2px);
+    background-size:
+        190px 190px,
+        320px 320px;
+    background-position:
+        80px 30px,
+        20px 140px;
+    animation: moveStars2 50s linear infinite;
+    opacity: 0.45;
 }
 
-@keyframes starsMove {
+@keyframes moveStars {
     from {
-        transform: translate3d(0, 0, 0);
+        transform: translate(0, 0);
     }
     to {
-        transform: translate3d(120px, 180px, 0);
+        transform: translate(130px, 190px);
     }
 }
 
-@keyframes starsMove2 {
+@keyframes moveStars2 {
     from {
-        transform: translate3d(0, 0, 0) scale(1.2);
+        transform: translate(0, 0);
     }
     to {
-        transform: translate3d(-160px, 220px, 0) scale(1.2);
+        transform: translate(-170px, 220px);
     }
 }
 
@@ -92,21 +95,26 @@ body {
     z-index: 2;
     width: min(92%, 760px);
     margin: auto;
-    padding: 55px 0 35px;
+    padding: 50px 0 35px;
     text-align: center;
 }
 
 /* LOGO */
 .logo-wrap {
-    width: 190px;
-    height: 190px;
+    width: 195px;
+    height: 195px;
     margin: 0 auto 20px;
     border-radius: 50%;
-    padding: 5px;
-    background: linear-gradient(135deg, #6d00ff, #d56cff, #7800ff);
+    padding: 4px;
+    background: linear-gradient(
+        135deg,
+        #6900ff,
+        #d65cff,
+        #8500ff
+    );
     box-shadow:
-        0 0 18px rgba(155, 0, 255, 0.8),
-        0 0 45px rgba(155, 0, 255, 0.25);
+        0 0 18px rgba(170, 0, 255, 0.8),
+        0 0 45px rgba(170, 0, 255, 0.35);
 }
 
 .logo {
@@ -114,10 +122,7 @@ body {
     height: 100%;
     border-radius: 50%;
     overflow: hidden;
-    background: #08030d;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #050007;
 }
 
 .logo img {
@@ -127,14 +132,7 @@ body {
     display: block;
 }
 
-/* fallback before logo.png is uploaded */
-.logo-text {
-    font-size: 42px;
-    font-weight: 900;
-    color: white;
-}
-
-/* NAME */
+/* TITLE */
 h1 {
     font-size: clamp(42px, 8vw, 72px);
     font-weight: 900;
@@ -143,25 +141,27 @@ h1 {
 }
 
 h1 span {
-    color: var(--purple2);
-    text-shadow: 0 0 18px rgba(192, 76, 255, 0.45);
+    color: var(--purple-light);
+    text-shadow: 0 0 20px rgba(208, 92, 255, 0.45);
 }
 
 .subtitle {
-    color: #c879ff;
-    letter-spacing: 6px;
+    color: #d06cff;
     font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 16px;
+    font-weight: 800;
+    letter-spacing: 6px;
+    margin-bottom: 17px;
 }
 
 .divider {
-    width: 90px;
+    width: 100px;
     height: 4px;
     margin: 0 auto 30px;
-    border-radius: 10px;
-    background: linear-gradient(90deg, transparent, #b000ff, transparent);
-    box-shadow: 0 0 18px rgba(176, 0, 255, 0.8);
+    border-radius: 20px;
+    background: #b000ff;
+    box-shadow:
+        0 0 10px #a100ff,
+        0 0 25px rgba(161, 0, 255, 0.75);
 }
 
 /* LINKS */
@@ -172,62 +172,29 @@ h1 span {
 }
 
 .link {
-    position: relative;
     min-height: 86px;
-    border: 2px solid var(--purple);
-    border-radius: 18px;
-    background:
-        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.35)),
-        var(--card);
-    text-decoration: none;
-    color: white;
     display: grid;
-    grid-template-columns: 72px 1fr 50px;
+    grid-template-columns: 70px 1fr 40px;
     align-items: center;
     padding: 0 20px;
-    overflow: hidden;
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+    text-decoration: none;
+    border-radius: 18px;
+    background: rgba(3, 0, 7, 0.88);
+    border: 2px solid var(--purple);
+    transition: 0.2s ease;
     box-shadow:
-        0 0 12px rgba(155, 0, 255, 0.25),
-        inset 0 0 16px rgba(155, 0, 255, 0.05);
-}
-
-.link::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -120%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,0.08),
-        transparent
-    );
-    transform: skewX(-20deg);
-    transition: left 0.6s ease;
-}
-
-.link:hover::before {
-    left: 160%;
+        0 0 12px rgba(170, 0, 255, 0.22),
+        inset 0 0 16px rgba(170, 0, 255, 0.04);
 }
 
 .link:hover {
-    transform: translateY(-4px);
-    background: rgba(20, 5, 30, 0.92);
-    box-shadow:
-        0 0 20px rgba(155, 0, 255, 0.5),
-        0 0 45px rgba(155, 0, 255, 0.16);
+    transform: translateY(-4px) scale(1.01);
 }
 
 .icon {
     display: flex;
-    align-items: center;
     justify-content: flex-start;
+    align-items: center;
 }
 
 .icon svg {
@@ -243,77 +210,87 @@ h1 span {
 }
 
 .arrow {
-    font-size: 30px;
     text-align: right;
-    color: white;
+    font-size: 32px;
+    color: currentColor;
 }
 
-/* PLATFORM COLORS */
+/* COLORS */
+
 .kick {
     color: #53ff00;
-    border-color: #53ff00;
-    box-shadow:
-        0 0 14px rgba(83,255,0,0.22),
-        inset 0 0 15px rgba(83,255,0,0.04);
 }
 
 .youtube {
     color: #ff2020;
-    border-color: #ff2020;
-    box-shadow:
-        0 0 14px rgba(255,32,32,0.22),
-        inset 0 0 15px rgba(255,32,32,0.04);
+}
+
+.discord {
+    color: #8b5cff;
 }
 
 .tiktok {
     color: #ffffff;
-    border-color: #00f2ea;
-    box-shadow:
-        0 0 14px rgba(0,242,234,0.18),
-        inset 0 0 15px rgba(255,0,80,0.04);
 }
 
 .twitch {
     color: #a64cff;
-    border-color: #9b00ff;
-    box-shadow:
-        0 0 14px rgba(155,0,255,0.28),
-        inset 0 0 15px rgba(155,0,255,0.05);
 }
 
 .instagram {
-    color: #ff4f9a;
-    border-color: #ff4f9a;
-    box-shadow:
-        0 0 14px rgba(255,79,154,0.22),
-        inset 0 0 15px rgba(255,79,154,0.04);
+    color: #ff5b9d;
 }
 
 .paypal {
-    color: #2ea7ff;
-    border-color: #1685ff;
-    box-shadow:
-        0 0 14px rgba(22,133,255,0.22),
-        inset 0 0 15px rgba(22,133,255,0.04);
+    color: #2697ff;
+}
+
+.kick:hover {
+    box-shadow: 0 0 26px rgba(83,255,0,0.38);
+}
+
+.youtube:hover {
+    box-shadow: 0 0 26px rgba(255,32,32,0.38);
+}
+
+.discord:hover {
+    box-shadow: 0 0 26px rgba(139,92,255,0.38);
+}
+
+.tiktok:hover {
+    box-shadow: 0 0 26px rgba(0,242,234,0.28);
+}
+
+.twitch:hover {
+    box-shadow: 0 0 26px rgba(166,76,255,0.38);
+}
+
+.instagram:hover {
+    box-shadow: 0 0 26px rgba(255,91,157,0.38);
+}
+
+.paypal:hover {
+    box-shadow: 0 0 26px rgba(38,151,255,0.38);
 }
 
 /* FOOTER */
 footer {
-    margin-top: 30px;
+    margin-top: 32px;
     color: #777;
     font-size: 13px;
 }
 
 footer span {
-    color: var(--purple2);
-    font-weight: 700;
+    color: var(--purple-light);
+    font-weight: 800;
 }
 
 /* MOBILE */
 @media (max-width: 600px) {
+
     .container {
+        width: 92%;
         padding-top: 35px;
-        width: min(92%, 560px);
     }
 
     .logo-wrap {
@@ -327,15 +304,15 @@ footer span {
     }
 
     .link {
-        min-height: 72px;
-        grid-template-columns: 55px 1fr 34px;
-        padding: 0 14px;
+        min-height: 74px;
+        grid-template-columns: 55px 1fr 30px;
+        padding: 0 15px;
         border-radius: 15px;
     }
 
     .icon svg {
-        width: 30px;
-        height: 30px;
+        width: 31px;
+        height: 31px;
     }
 
     .name {
@@ -343,7 +320,7 @@ footer span {
     }
 
     .arrow {
-        font-size: 25px;
+        font-size: 26px;
     }
 }
 </style>
@@ -351,22 +328,23 @@ footer span {
 
 <body>
 
-<div id="stars"></div>
-<div id="stars2"></div>
+<div class="stars"></div>
+<div class="stars2"></div>
 
 <div class="container">
 
+    <!-- YOUR RGS LOGO -->
     <div class="logo-wrap">
         <div class="logo">
-            <img src="logo.png" alt="YardenRGS Logo"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <div class="logo-text" style="display:none;">RGS</div>
+            <img src="logo.png" alt="YardenRGS">
         </div>
     </div>
 
     <h1>Yarden<span>RGS</span></h1>
 
-    <div class="subtitle">WELCOME TO MY LINKS</div>
+    <div class="subtitle">
+        WELCOME TO MY LINKS
+    </div>
 
     <div class="divider"></div>
 
@@ -376,7 +354,6 @@ footer span {
         <a class="link kick" href="#" target="_blank">
             <div class="icon">
                 <svg viewBox="0 0 64 64">
-                    <path d="M10 10h44v44H10z" fill="none"/>
                     <path d="M14 12h12v16h8V12h12v40H34V40h-8v12H14z"/>
                 </svg>
             </div>
@@ -392,6 +369,17 @@ footer span {
                 </svg>
             </div>
             <div class="name">YouTube</div>
+            <div class="arrow">›</div>
+        </a>
+
+        <!-- DISCORD -->
+        <a class="link discord" href="#" target="_blank">
+            <div class="icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19.5 5.1A16.2 16.2 0 0 0 15.6 4l-.5 1a15 15 0 0 0-6.2 0l-.5-1a16.2 16.2 0 0 0-3.9 1.1C2 8.1 1.3 11 1.6 13.8c1.7 1.3 3.3 2.1 4.9 2.6l1.2-1.7c-.6-.2-1.2-.5-1.7-.8l.4-.3c3.3 1.5 7 1.5 10.3 0l.4.3c-.5.3-1.1.6-1.7.8l1.2 1.7c1.6-.5 3.2-1.3 4.9-2.6.4-3.3-.7-6.2-2-8.7zM8.5 12.7c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/>
+                </svg>
+            </div>
+            <div class="name">Discord</div>
             <div class="arrow">›</div>
         </a>
 
@@ -421,7 +409,7 @@ footer span {
         <a class="link instagram" href="#" target="_blank">
             <div class="icon">
                 <svg viewBox="0 0 24 24">
-                    <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zm5.2-3.1a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1z"/>
+                    <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zm5.2-3.1a1.1 1.1 0 1 1-1.1 1.1 1.1 0 0 1 1.1-1.1z"/>
                 </svg>
             </div>
             <div class="name">Instagram</div>
@@ -448,4 +436,4 @@ footer span {
 </div>
 
 </body>
-</html>  
+</html>
