@@ -24,53 +24,68 @@ body{
 }
 
 /* =========================
-   SPACE BACKGROUND
+   BACKGROUND
 ========================= */
 
-.space{
+#space{
     position:fixed;
     inset:0;
+    z-index:0;
     overflow:hidden;
     pointer-events:none;
-    z-index:0;
+
     background:
-        radial-gradient(circle at 50% 45%,
-        rgba(120,0,255,.18),
-        transparent 35%),
+        radial-gradient(
+            circle at center,
+            rgba(120,0,255,.20),
+            transparent 38%
+        ),
         #020006;
 }
 
-/* =========================
-   NORMAL MOVING STARS
-========================= */
-
 .star{
     position:absolute;
+    left:50%;
+    top:50%;
+
     width:2px;
     height:2px;
-    background:white;
+
     border-radius:50%;
-    box-shadow:0 0 7px #c56cff;
-    animation:starFloat linear infinite;
+    background:white;
+
+    box-shadow:
+        0 0 5px white,
+        0 0 10px #a900ff;
+
+    animation:
+        flyStar var(--speed) linear infinite;
+
+    animation-delay:var(--delay);
 }
 
-@keyframes starFloat{
-    from{
-        transform:translate3d(0,0,0);
-        opacity:.15;
+@keyframes flyStar{
+
+    0%{
+        transform:
+            translate(-50%,-50%)
+            translate(0,0)
+            scale(.1);
+
+        opacity:0;
     }
 
-    50%{
+    8%{
         opacity:1;
     }
 
-    to{
-        transform:translate3d(
-            var(--x),
-            var(--y),
-            0
-        );
-        opacity:.1;
+    100%{
+        transform:
+            translate(-50%,-50%)
+            translate(var(--x),var(--y))
+            scale(4);
+
+        opacity:0;
     }
 }
 
@@ -81,6 +96,7 @@ body{
 #intro{
     position:fixed;
     inset:0;
+
     z-index:9999;
 
     display:flex;
@@ -90,7 +106,7 @@ body{
     background:
         radial-gradient(
             circle at center,
-            rgba(130,0,255,.2),
+            rgba(140,0,255,.22),
             transparent 35%
         ),
         #010002;
@@ -107,193 +123,69 @@ body{
 }
 
 /* =========================
-   HYPERSPACE STARS
-========================= */
-
-.hyperstars{
-    position:absolute;
-    inset:0;
-    overflow:hidden;
-    perspective:500px;
-}
-
-.hyperstar{
-    position:absolute;
-
-    width:2px;
-    height:2px;
-
-    border-radius:50%;
-
-    background:white;
-
-    box-shadow:
-        0 0 5px white,
-        0 0 10px #a900ff;
-
-    left:50%;
-    top:50%;
-
-    transform:
-        translate(-50%,-50%)
-        rotate(var(--angle))
-        translateY(0);
-
-    animation:
-        hyperspace var(--speed) linear infinite;
-}
-
-@keyframes hyperspace{
-
-    0%{
-        transform:
-            translate(-50%,-50%)
-            rotate(var(--angle))
-            translateY(0)
-            scale(.2);
-
-        opacity:0;
-    }
-
-    10%{
-        opacity:1;
-    }
-
-    100%{
-        transform:
-            translate(-50%,-50%)
-            rotate(var(--angle))
-            translateY(-650px)
-            scale(5);
-
-        opacity:0;
-    }
-}
-
-/* extra streaks */
-
-.streak{
-    position:absolute;
-
-    width:2px;
-    height:90px;
-
-    background:
-        linear-gradient(
-            to bottom,
-            transparent,
-            white,
-            #b400ff,
-            transparent
-        );
-
-    opacity:.8;
-
-    left:50%;
-    top:50%;
-
-    transform-origin:50% 100%;
-
-    animation:
-        streakMove var(--speed) linear infinite;
-}
-
-@keyframes streakMove{
-
-    from{
-        transform:
-            rotate(var(--angle))
-            translateY(0)
-            scaleY(.2);
-
-        opacity:0;
-    }
-
-    15%{
-        opacity:1;
-    }
-
-    to{
-        transform:
-            rotate(var(--angle))
-            translateY(-750px)
-            scaleY(1.5);
-
-        opacity:0;
-    }
-}
-
-/* =========================
-   COIN
+   LOGO COIN
 ========================= */
 
 .coin{
-    width:290px;
-    height:290px;
-
     position:relative;
+    z-index:10;
 
-    z-index:5;
+    width:300px;
+    height:300px;
 
     transform-style:preserve-3d;
 
     animation:
         coinAppear .8s ease-out forwards,
-        coinSpin 2.8s cubic-bezier(.15,.7,.2,1) .6s forwards;
+        coinRotate 2.7s cubic-bezier(.18,.72,.18,1) .45s forwards;
 }
 
 .coin img{
     width:100%;
     height:100%;
 
+    display:block;
+
     object-fit:cover;
 
     border-radius:50%;
 
-    display:block;
-
     border:4px solid #a900ff;
 
     box-shadow:
-        0 0 15px #a900ff,
-        0 0 40px rgba(160,0,255,.8),
-        0 0 100px rgba(120,0,255,.4);
+        0 0 20px #a900ff,
+        0 0 55px rgba(160,0,255,.8),
+        0 0 120px rgba(100,0,255,.35);
 
     backface-visibility:hidden;
 }
 
 @keyframes coinAppear{
-
-    from{
+    0%{
         opacity:0;
-        transform:scale(.1);
+        transform:scale(.05);
     }
 
-    to{
+    100%{
         opacity:1;
         transform:scale(1);
     }
 }
 
-/* EXACTLY ONE ROTATION */
+/* בדיוק סיבוב אחד */
 
-@keyframes coinSpin{
-
-    from{
-        transform:
-            rotateY(0deg)
-            scale(1);
+@keyframes coinRotate{
+    0%{
+        transform:rotateY(0deg);
     }
 
-    to{
-        transform:
-            rotateY(360deg)
-            scale(1);
+    100%{
+        transform:rotateY(360deg);
     }
 }
 
 /* =========================
-   MAIN PAGE
+   WEBSITE
 ========================= */
 
 #site{
@@ -302,8 +194,7 @@ body{
 
     min-height:100vh;
 
-    padding:
-        45px 20px 35px;
+    padding:45px 20px 35px;
 
     opacity:0;
 
@@ -333,8 +224,7 @@ body{
     width:190px;
     height:190px;
 
-    margin:
-        0 auto 20px;
+    margin:0 auto 20px;
 
     padding:4px;
 
@@ -343,9 +233,9 @@ body{
     background:
         linear-gradient(
             135deg,
-            #6800ff,
-            #d75cff,
-            #8700ff
+            #6500ff,
+            #d65cff,
+            #8200ff
         );
 
     box-shadow:
@@ -357,8 +247,8 @@ body{
     width:100%;
     height:100%;
 
-    border-radius:50%;
     overflow:hidden;
+    border-radius:50%;
 
     background:#020006;
 }
@@ -376,19 +266,21 @@ body{
 h1{
     font-size:clamp(42px,8vw,72px);
     font-weight:900;
+
     letter-spacing:-2px;
+
     margin-bottom:8px;
 }
 
 h1 span{
-    color:#c54cff;
+    color:#c64cff;
 
     text-shadow:
-        0 0 15px rgba(197,76,255,.6);
+        0 0 15px rgba(198,76,255,.6);
 }
 
 .subtitle{
-    color:#c54cff;
+    color:#c64cff;
 
     font-size:14px;
     font-weight:800;
@@ -402,8 +294,7 @@ h1 span{
     width:100px;
     height:4px;
 
-    margin:
-        0 auto 30px;
+    margin:0 auto 30px;
 
     border-radius:20px;
 
@@ -436,31 +327,23 @@ h1 span{
 
     align-items:center;
 
-    padding:
-        0 20px;
+    padding:0 20px;
 
     text-decoration:none;
 
     border-radius:18px;
 
-    background:
-        rgba(3,0,8,.9);
+    background:rgba(3,0,8,.9);
 
     border:2px solid currentColor;
 
     transition:
         transform .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
+        box-shadow .2s ease;
 }
 
 .link:hover{
-    transform:
-        translateY(-4px)
-        scale(1.01);
-
-    background:
-        rgba(15,2,25,.96);
+    transform:translateY(-4px) scale(1.01);
 }
 
 .icon{
@@ -483,12 +366,11 @@ h1 span{
 
 .arrow{
     text-align:right;
-
     font-size:34px;
 }
 
 /* =========================
-   BRAND COLORS
+   COLORS
 ========================= */
 
 .kick{
@@ -519,67 +401,42 @@ h1 span{
     color:#2797ff;
 }
 
-/* TikTok dual color */
-
-.tiktok .icon svg{
-    filter:
-        drop-shadow(3px 0 0 #ff0050)
-        drop-shadow(-3px 0 0 #00f2ea);
-}
-
-/* =========================
-   HOVERS
-========================= */
-
 .kick:hover{
-    box-shadow:
-        0 0 30px rgba(83,255,0,.4);
+    box-shadow:0 0 30px rgba(83,255,0,.4);
 }
 
 .youtube:hover{
-    box-shadow:
-        0 0 30px rgba(255,30,30,.4);
+    box-shadow:0 0 30px rgba(255,30,30,.4);
 }
 
 .discord:hover{
-    box-shadow:
-        0 0 30px rgba(140,98,255,.4);
+    box-shadow:0 0 30px rgba(140,98,255,.4);
 }
 
 .tiktok:hover{
-    box-shadow:
-        0 0 30px rgba(0,242,234,.35);
+    box-shadow:0 0 30px rgba(0,242,234,.35);
 }
 
 .twitch:hover{
-    box-shadow:
-        0 0 30px rgba(166,76,255,.4);
+    box-shadow:0 0 30px rgba(166,76,255,.4);
 }
 
 .instagram:hover{
-    box-shadow:
-        0 0 30px rgba(255,79,157,.4);
+    box-shadow:0 0 30px rgba(255,79,157,.4);
 }
 
 .paypal:hover{
-    box-shadow:
-        0 0 30px rgba(39,151,255,.4);
+    box-shadow:0 0 30px rgba(39,151,255,.4);
 }
-
-/* =========================
-   FOOTER
-========================= */
 
 footer{
     margin-top:32px;
-
     color:#777;
-
     font-size:13px;
 }
 
 footer span{
-    color:#c54cff;
+    color:#c64cff;
     font-weight:800;
 }
 
@@ -593,14 +450,14 @@ footer span{
         padding-top:35px;
     }
 
-    .logo-wrap{
-        width:150px;
-        height:150px;
-    }
-
     .coin{
         width:230px;
         height:230px;
+    }
+
+    .logo-wrap{
+        width:150px;
+        height:150px;
     }
 
     .link{
@@ -639,14 +496,13 @@ footer span{
 
 <body>
 
-<!-- SPACE -->
-<div class="space" id="space"></div>
+<div id="space"></div>
 
+<!-- =========================
+     INTRO
+========================= -->
 
-<!-- INTRO -->
 <div id="intro">
-
-    <div class="hyperstars" id="hyperstars"></div>
 
     <div class="coin">
         <img src="logo.png" alt="YardenRGS">
@@ -655,427 +511,357 @@ footer span{
 </div>
 
 
-<!-- WEBSITE -->
+<!-- =========================
+     MAIN WEBSITE
+========================= -->
+
 <div id="site">
 
-    <div class="container">
+<div class="container">
 
-        <!-- LOGO -->
+    <div class="logo-wrap">
+        <div class="logo">
+            <img src="logo.png" alt="YardenRGS">
+        </div>
+    </div>
 
-        <div class="logo-wrap">
-            <div class="logo">
-                <img src="logo.png" alt="YardenRGS">
+    <h1>
+        Yarden<span>RGS</span>
+    </h1>
+
+    <div class="subtitle">
+        WELCOME TO MY LINKS
+    </div>
+
+    <div class="divider"></div>
+
+
+    <div class="links">
+
+        <!-- KICK -->
+
+        <a
+            class="link kick"
+            href="https://kick.com/1nyrox"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="icon">
+                <svg viewBox="0 0 64 64">
+                    <path
+                        fill="currentColor"
+                        d="
+                        M10 8
+                        H24
+                        V25
+                        L39 8
+                        H55
+                        L38 29
+                        L56 56
+                        H39
+                        L25 38
+                        L24 39
+                        V56
+                        H10
+                        Z
+                        "
+                    />
+                </svg>
             </div>
-        </div>
-
-
-        <!-- TITLE -->
-
-        <h1>
-            Yarden<span>RGS</span>
-        </h1>
-
-        <div class="subtitle">
-            WELCOME TO MY LINKS
-        </div>
-
-        <div class="divider"></div>
-
-
-        <div class="links">
-
-            <!-- KICK -->
-
-            <a
-                class="link kick"
-                href="https://kick.com/1nyrox"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-
-                <div class="icon">
-
-                    <!-- KICK K -->
-
-                    <svg viewBox="0 0 64 64">
-                        <path
-                            fill="currentColor"
-                            d="
-                            M10 8
-                            H24
-                            V25
-                            L39 8
-                            H55
-                            L38 29
-                            L56 56
-                            H39
-                            L25 38
-                            L24 39
-                            V56
-                            H10
-                            Z
-                            "
-                        />
-                    </svg>
-
-                </div>
-
-                <div class="name">
-                    Kick
-                </div>
-
-                <div class="arrow">
-                    ›
-                </div>
-
-            </a>
-
-
-            <!-- YOUTUBE -->
-
-            <a
-                class="link youtube"
-                href="https://www.youtube.com/@1NyRoXx"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-
-                <div class="icon">
-
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                    >
-                        <path d="
-                        M23.5 6.2
-                        A3 3 0 0 0 21.4 4.1
-                        C19.5 3.5 12 3.5 12 3.5
-                        S4.5 3.5 2.6 4.1
-                        A3 3 0 0 0 .5 6.2
-                        A31 31 0 0 0 0 12
-                        A31 31 0 0 0 .5 17.8
-                        A3 3 0 0 0 2.6 19.9
-                        C4.5 20.5 12 20.5 12 20.5
-                        S19.5 20.5 21.4 19.9
-                        A3 3 0 0 0 23.5 17.8
-                        A31 31 0 0 0 24 12
-                        A31 31 0 0 0 23.5 6.2
-                        Z
-                        M9.6 15.5
-                        V8.5
-                        L15.8 12
-                        Z
-                        "/>
-                    </svg>
-
-                </div>
-
-                <div class="name">
-                    YouTube
-                </div>
-
-                <div class="arrow">
-                    ›
-                </div>
-
-            </a>
-
-
-            <!-- DISCORD -->
-
-            <a
-                class="link discord"
-                href="https://discord.gg/j3MSTy4Tg"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-
-                <div class="icon">
-
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                    >
-                        <path d="
-                        M19.5 5.1
-                        A16.2 16.2 0 0 0 15.6 4
-                        L15.1 5
-                        A15 15 0 0 0 8.9 5
-                        L8.4 4
-                        A16.2 16.2 0 0 0 4.5 5.1
-                        C2 8.1 1.3 11 1.6 13.8
-                        C3.3 15.1 4.9 16 6.5 16.4
-                        L7.7 14.7
-                        C7.1 14.5 6.5 14.2 6 13.9
-                        L6.4 13.6
-                        C9.7 15.1 13.4 15.1 16.7 13.6
-                        L17.1 13.9
-                        C16.6 14.2 16 14.5 15.4 14.7
-                        L16.6 16.4
-                        C18.2 16 19.8 15.1 21.5 13.8
-                        C21.8 10.5 20.7 7.5 19.5 5.1
-                        Z
-                        M8.5 12.7
-                        C7.5 12.7 6.7 11.8 6.7 10.7
-                        S7.5 8.7 8.5 8.7
-                        S10.3 9.6 10.3 10.7
-                        S9.5 12.7 8.5 12.7
-                        Z
-                        M15.5 12.7
-                        C14.5 12.7 13.7 11.8 13.7 10.7
-                        S14.5 8.7 15.5 8.7
-                        S17.3 9.6 17.3 10.7
-                        S16.5 12.7 15.5 12.7
-                        Z
-                        "/>
-                    </svg>
-
-                </div>
-
-                <div class="name">
-                    Discord
-                </div>
-
-                <div class="arrow">
-                    ›
-                </div>
-
-            </a>
-
-
-            <!-- TIKTOK -->
-
-            <a
-                class="link tiktok"
-                href="https://www.tiktok.com/@1nyroxx"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-
-                <div class="icon">
-
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                    >
-                        <path d="
-                        M16.7 3
-                        C17.1 5.2 18.4 6.5 20.5 6.7
-                        V9.9
-                        C18.6 10.1 17 9.5 15.5 8.5
-                        V15.6
-                        C15.5 20.1 12.4 22.8 8.5 22.8
-                        C4.9 22.8 2 20.2 2 16.6
-                        C2 12.9 5 10.2 8.7 10.2
-                        C9.2 10.2 9.7 10.3 10.2 10.4
-                        V13.8
-                        C9.8 13.7 9.4 13.6 9 13.6
-                        C7.3 13.6 5.9 14.7 5.9 16.5
-                        C5.9 18.2 7.2 19.4 8.8 19.4
-                        C10.7 19.4 12.1 18.2 12.1 15.8
-                        V3
-                        H16.7
-                        Z
-                        "/>
-                    </svg>
-
-                </div>
-
-                <div class="name">
-                    TikTok
-                </div>
-
-                <div class="arrow">
-                    ›
-                </div>
-
-            </a>
-
-
-            <!-- TWITCH -->
-
-            <a
-                class="link twitch"
-                href="https://www.twitch.tv/1nyroxx"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-
-                <div class="icon">
-
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                    >
-                        <path d="
-                        M4 3
-                        H22
-                        V15
-                        L17 20
-                        H12
-                        L9 23
-                        V20
-                        H4
-                        Z
-
-                        M7 6
-                        V17
-                        H10
-                        V20
-                        L13 17
-                        H17
-                        L20 14
-                        V6
-                        Z
-
-                        M9 8
-                        H11
-                        V13
-                        H9
-                        Z
-
-                        M14 8
-                        H16
-                        V13
-                        H14
-                        Z
-                        "/>
-                    </svg>
-
-                </div>
-
-                <div class="name">
-                    Twitch
-                </div>
-
-                <div class="arrow">
-                    ›
-                </div>
-
-            </a>
-
-
-            <!-- INSTAGRAM -->
-
-            <a
-                class="link instagram"
-                href="https://www.instagram.com/nyroxgg1/?hl=en"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-
-                <div class="icon">
-
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                    >
-                        <path d="
-                        M7 2
-                        H17
-                        A5 5 0 0 1 22 7
-                        V17
-                        A5 5 0 0 1 17 22
-                        H7
-                        A5 5 0 0 1 2 17
-                        V7
-                        A5 5 0 0 1 7 2
-                        Z
-
-                        M7 4
-                        A3 3 0 0 0 4 7
-                        V17
-                        A3 3 0 0 0 7 20
-                        H17
-                        A3 3 0 0 0 20 17
-                        V7
-                        A3 3 0 0 0 17 4
-                        Z
-
-                        M12 7
-                        A5 5 0 1 0 12 17
-                        A5 5 0 0 0 12 7
-                        Z
-
-                        M12 9
-                        A3 3 0 1 1 12 15
-                        A3 3 0 0 1 12 9
-                        Z
-
-                        M17.5 6
-                        A1.2 1.2 0 1 0 17.5 8.4
-                        A1.2 1.2 0 0 0 17.5 6
-                        Z
-                        "/>
-                    </svg>
-
-                </div>
-
-                <div class="name">
-                    Instagram
-                </div>
-
-                <div class="arrow">
-                    ›
-                </div>
-
-            </a>
-
-
-            <!-- PAYPAL -->
-
-            <a
-                class="link paypal"
-                href="https://botrix.live/k/1nyrox/tip"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-
-                <div class="icon">
-
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                    >
-                        <path d="
-                        M7 3
-                        H14.2
-                        C17.2 3 19.4 4.5 19.4 7.4
-                        C19.4 10.8 17 12.8 13.3 12.8
-                        H10
-                        L8.8 19
-                        H4.4
-                        Z
-
-                        M10.4 10
-                        H13
-                        C14.8 10 16 9 16 7.5
-                        C16 6.3 15.1 5.5 13.5 5.5
-                        H11.6
-                        Z
-                        "/>
-                    </svg>
-
-                </div>
-
-                <div class="name">
-                    PayPal
-                </div>
-
-                <div class="arrow">
-                    ›
-                </div>
-
-            </a>
-
-        </div>
-
-
-        <footer>
-            © 2026 <span>YardenRGS</span>. All rights reserved.
-        </footer>
+
+            <div class="name">Kick</div>
+
+            <div class="arrow">›</div>
+
+        </a>
+
+
+        <!-- YOUTUBE -->
+
+        <a
+            class="link youtube"
+            href="https://www.youtube.com/@1NyRoXx"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="icon">
+
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="
+                    M23.5 6.2
+                    A3 3 0 0 0 21.4 4.1
+                    C19.5 3.5 12 3.5 12 3.5
+                    S4.5 3.5 2.6 4.1
+                    A3 3 0 0 0 .5 6.2
+                    A31 31 0 0 0 0 12
+                    A31 31 0 0 0 .5 17.8
+                    A3 3 0 0 0 2.6 19.9
+                    C4.5 20.5 12 20.5 12 20.5
+                    S19.5 20.5 21.4 19.9
+                    A3 3 0 0 0 23.5 17.8
+                    A31 31 0 0 0 24 12
+                    A31 31 0 0 0 23.5 6.2
+                    Z
+                    M9.6 15.5
+                    V8.5
+                    L15.8 12
+                    Z"/>
+                </svg>
+
+            </div>
+
+            <div class="name">YouTube</div>
+
+            <div class="arrow">›</div>
+
+        </a>
+
+
+        <!-- DISCORD -->
+
+        <a
+            class="link discord"
+            href="https://discord.gg/j3MSTy4Tg"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="icon">
+
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="
+                    M19.5 5.1
+                    A16.2 16.2 0 0 0 15.6 4
+                    L15.1 5
+                    A15 15 0 0 0 8.9 5
+                    L8.4 4
+                    A16.2 16.2 0 0 0 4.5 5.1
+                    C2 8.1 1.3 11 1.6 13.8
+                    C3.3 15.1 4.9 16 6.5 16.4
+                    L7.7 14.7
+                    C7.1 14.5 6.5 14.2 6 13.9
+                    L6.4 13.6
+                    C9.7 15.1 13.4 15.1 16.7 13.6
+                    L17.1 13.9
+                    C16.6 14.2 16 14.5 15.4 14.7
+                    L16.6 16.4
+                    C18.2 16 19.8 15.1 21.5 13.8
+                    C21.8 10.5 20.7 7.5 19.5 5.1
+                    Z
+                    M8.5 12.7
+                    C7.5 12.7 6.7 11.8 6.7 10.7
+                    S7.5 8.7 8.5 8.7
+                    S10.3 9.6 10.3 10.7
+                    S9.5 12.7 8.5 12.7
+                    Z
+                    M15.5 12.7
+                    C14.5 12.7 13.7 11.8 13.7 10.7
+                    S14.5 8.7 15.5 8.7
+                    S17.3 9.6 17.3 10.7
+                    S16.5 12.7 15.5 12.7
+                    Z"/>
+                </svg>
+
+            </div>
+
+            <div class="name">Discord</div>
+
+            <div class="arrow">›</div>
+
+        </a>
+
+
+        <!-- TIKTOK -->
+
+        <a
+            class="link tiktok"
+            href="https://www.tiktok.com/@1nyroxx"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="icon">
+
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="
+                    M16.7 3
+                    C17.1 5.2 18.4 6.5 20.5 6.7
+                    V9.9
+                    C18.6 10.1 17 9.5 15.5 8.5
+                    V15.6
+                    C15.5 20.1 12.4 22.8 8.5 22.8
+                    C4.9 22.8 2 20.2 2 16.6
+                    C2 12.9 5 10.2 8.7 10.2
+                    C9.2 10.2 9.7 10.3 10.2 10.4
+                    V13.8
+                    C9.8 13.7 9.4 13.6 9 13.6
+                    C7.3 13.6 5.9 14.7 5.9 16.5
+                    C5.9 18.2 7.2 19.4 8.8 19.4
+                    C10.7 19.4 12.1 18.2 12.1 15.8
+                    V3
+                    H16.7
+                    Z"/>
+                </svg>
+
+            </div>
+
+            <div class="name">TikTok</div>
+
+            <div class="arrow">›</div>
+
+        </a>
+
+
+        <!-- TWITCH -->
+
+        <a
+            class="link twitch"
+            href="https://www.twitch.tv/1nyroxx"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="icon">
+
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="
+                    M4 3
+                    H22
+                    V15
+                    L17 20
+                    H12
+                    L9 23
+                    V20
+                    H4
+                    Z
+                    M7 6
+                    V17
+                    H10
+                    V20
+                    L13 17
+                    H17
+                    L20 14
+                    V6
+                    Z
+                    M9 8
+                    H11
+                    V13
+                    H9
+                    Z
+                    M14 8
+                    H16
+                    V13
+                    H14
+                    Z"/>
+                </svg>
+
+            </div>
+
+            <div class="name">Twitch</div>
+
+            <div class="arrow">›</div>
+
+        </a>
+
+
+        <!-- INSTAGRAM -->
+
+        <a
+            class="link instagram"
+            href="https://www.instagram.com/nyroxgg1/?hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="icon">
+
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="
+                    M7 2
+                    H17
+                    A5 5 0 0 1 22 7
+                    V17
+                    A5 5 0 0 1 17 22
+                    H7
+                    A5 5 0 0 1 2 17
+                    V7
+                    A5 5 0 0 1 7 2
+                    Z
+                    M7 4
+                    A3 3 0 0 0 4 7
+                    V17
+                    A3 3 0 0 0 7 20
+                    H17
+                    A3 3 0 0 0 20 17
+                    V7
+                    A3 3 0 0 0 17 4
+                    Z
+                    M12 7
+                    A5 5 0 1 0 12 17
+                    A5 5 0 0 0 12 7
+                    Z
+                    M12 9
+                    A3 3 0 1 1 12 15
+                    A3 3 0 0 1 12 9
+                    Z"/>
+                </svg>
+
+            </div>
+
+            <div class="name">Instagram</div>
+
+            <div class="arrow">›</div>
+
+        </a>
+
+
+        <!-- PAYPAL -->
+
+        <a
+            class="link paypal"
+            href="https://botrix.live/k/1nyrox/tip"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="icon">
+
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="
+                    M7 3
+                    H14.2
+                    C17.2 3 19.4 4.5 19.4 7.4
+                    C19.4 10.8 17 12.8 13.3 12.8
+                    H10
+                    L8.8 19
+                    H4.4
+                    Z
+                    M10.4 10
+                    H13
+                    C14.8 10 16 9 16 7.5
+                    C16 6.3 15.1 5.5 13.5 5.5
+                    H11.6
+                    Z"/>
+                </svg>
+
+            </div>
+
+            <div class="name">PayPal</div>
+
+            <div class="arrow">›</div>
+
+        </a>
 
     </div>
+
+
+    <footer>
+        © 2026 <span>YardenRGS</span>. All rights reserved.
+    </footer>
+
+</div>
 
 </div>
 
@@ -1083,114 +869,70 @@ footer span{
 <script>
 
 /* =========================
-   CREATE NORMAL STARS
+   CREATE HYPERSPACE STARS
 ========================= */
 
-const space =
-    document.getElementById("space");
+const space = document.getElementById("space");
 
-for(let i=0;i<90;i++){
+for(let i = 0; i < 220; i++){
 
-    const star =
-        document.createElement("div");
+    const star = document.createElement("div");
 
-    star.className="star";
+    star.className = "star";
 
-    star.style.left =
-        Math.random()*100+"%";
+    /*
+       Random direction from center
+       so stars fly OUTWARD in every direction.
+    */
 
-    star.style.top =
-        Math.random()*100+"%";
+    const angle = Math.random() * Math.PI * 2;
+
+    const distance =
+        500 + Math.random() * 1000;
+
+    const x =
+        Math.cos(angle) * distance;
+
+    const y =
+        Math.sin(angle) * distance;
 
     star.style.setProperty(
         "--x",
-        (Math.random()*300-150)+"px"
+        x + "px"
     );
 
     star.style.setProperty(
         "--y",
-        (Math.random()*300-150)+"px"
+        y + "px"
     );
 
-    star.style.animationDuration =
-        (8+Math.random()*18)+"s";
+    star.style.setProperty(
+        "--speed",
+        (1.1 + Math.random() * 2.2) + "s"
+    );
 
-    star.style.animationDelay =
-        (-Math.random()*20)+"s";
+    star.style.setProperty(
+        "--delay",
+        (-Math.random() * 3) + "s"
+    );
 
     space.appendChild(star);
 }
 
 
 /* =========================
-   CREATE HYPERSPACE STARS
+   SHOW WEBSITE
 ========================= */
 
-const hyperstars =
-    document.getElementById("hyperstars");
+window.addEventListener("load", () => {
 
-for(let i=0;i<180;i++){
+    /*
+       Coin:
+       0.45s delay + 2.7s rotation
+       = 3.15 seconds.
+    */
 
-    const star =
-        document.createElement("div");
-
-    star.className="hyperstar";
-
-    const angle =
-        Math.random()*360;
-
-    star.style.setProperty(
-        "--angle",
-        angle+"deg"
-    );
-
-    star.style.setProperty(
-        "--speed",
-        (1.2+Math.random()*2.4)+"s"
-    );
-
-    star.style.animationDelay =
-        (-Math.random()*4)+"s";
-
-    hyperstars.appendChild(star);
-}
-
-
-/* =========================
-   EXTRA STAR STREAKS
-========================= */
-
-for(let i=0;i<45;i++){
-
-    const streak =
-        document.createElement("div");
-
-    streak.className="streak";
-
-    streak.style.setProperty(
-        "--angle",
-        Math.random()*360+"deg"
-    );
-
-    streak.style.setProperty(
-        "--speed",
-        (1.5+Math.random()*2)+"s"
-    );
-
-    streak.style.animationDelay =
-        (-Math.random()*4)+"s";
-
-    hyperstars.appendChild(streak);
-}
-
-
-/* =========================
-   ENTER SITE AFTER COIN
-========================= */
-
-window.addEventListener("load",()=>{
-
-    setTimeout(()=>{
+    setTimeout(() => {
 
         document
             .getElementById("intro")
@@ -1200,7 +942,7 @@ window.addEventListener("load",()=>{
             .getElementById("site")
             .classList.add("show");
 
-    },3900);
+    }, 3350);
 
 });
 
