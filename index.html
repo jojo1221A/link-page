@@ -17,34 +17,111 @@ html,body{
 }
 
 body{
-    background:#020006;
+    background:#010003;
     color:white;
     font-family:Arial,Helvetica,sans-serif;
     overflow-x:hidden;
 }
 
-/* =========================
-   BACKGROUND
-========================= */
+/* =================================
+   DARK SPACE BACKGROUND
+================================= */
 
-#space{
+body::before{
+    content:"";
     position:fixed;
     inset:0;
-    z-index:0;
-    overflow:hidden;
+    z-index:-5;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(105,0,180,.16) 0%,
+            rgba(25,0,45,.10) 30%,
+            #010003 72%
+        );
+}
+
+/* Purple energy */
+
+.energy{
+    position:fixed;
+    inset:-20%;
+    z-index:-4;
     pointer-events:none;
 
     background:
         radial-gradient(
+            ellipse at 50% 38%,
+            rgba(140,0,255,.30) 0%,
+            rgba(85,0,150,.17) 17%,
+            transparent 48%
+        );
+
+    filter:blur(18px);
+
+    animation:energyPulse 6s ease-in-out infinite;
+}
+
+@keyframes energyPulse{
+    0%,100%{
+        opacity:.55;
+        transform:scale(1);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.08);
+    }
+}
+
+/* =================================
+   INTRO
+================================= */
+
+#intro{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(
             circle at center,
-            rgba(120,0,255,.20),
-            transparent 38%
-        ),
-        #020006;
+            rgba(110,0,210,.20),
+            rgba(20,0,35,.12) 35%,
+            #000 78%
+        );
+
+    transition:
+        opacity .9s ease,
+        visibility .9s ease;
+}
+
+#intro.hide{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+/* =================================
+   HYPERSPACE
+================================= */
+
+#hyperspace{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
 }
 
 .star{
     position:absolute;
+
     left:50%;
     top:50%;
 
@@ -52,25 +129,89 @@ body{
     height:2px;
 
     border-radius:50%;
+
     background:white;
 
     box-shadow:
         0 0 5px white,
-        0 0 10px #a900ff;
+        0 0 12px #a800ff,
+        0 0 22px #7b00ff;
+
+    transform-origin:center;
 
     animation:
-        flyStar var(--speed) linear infinite;
+        fly var(--duration) linear infinite;
 
     animation-delay:var(--delay);
 }
 
-@keyframes flyStar{
+@keyframes fly{
 
     0%{
         transform:
             translate(-50%,-50%)
             translate(0,0)
             scale(.1);
+
+        opacity:0;
+    }
+
+    5%{
+        opacity:1;
+    }
+
+    100%{
+        transform:
+            translate(-50%,-50%)
+            translate(var(--x),var(--y))
+            scale(5);
+
+        opacity:0;
+    }
+}
+
+/* Long Star-Wars style streaks */
+
+.streak{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:2px;
+    height:120px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            white 35%,
+            #c06cff 70%,
+            transparent
+        );
+
+    box-shadow:
+        0 0 8px #b000ff,
+        0 0 18px #8c00ff;
+
+    transform-origin:50% 100%;
+
+    animation:
+        streakFly var(--duration) linear infinite;
+
+    animation-delay:var(--delay);
+}
+
+@keyframes streakFly{
+
+    0%{
+        transform:
+            translate(-50%,-50%)
+            rotate(var(--angle))
+            translateY(0)
+            scaleY(.1);
 
         opacity:0;
     }
@@ -82,127 +223,97 @@ body{
     100%{
         transform:
             translate(-50%,-50%)
-            translate(var(--x),var(--y))
-            scale(4);
+            rotate(var(--angle))
+            translateY(-850px)
+            scaleY(1.8);
 
         opacity:0;
     }
 }
 
-/* =========================
-   INTRO
-========================= */
+/* =================================
+   INTRO LOGO
+================================= */
 
-#intro{
-    position:fixed;
-    inset:0;
-
-    z-index:9999;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(140,0,255,.22),
-            transparent 35%
-        ),
-        #010002;
-
-    transition:
-        opacity .8s ease,
-        visibility .8s ease;
-}
-
-#intro.hide{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-}
-
-/* =========================
-   LOGO COIN
-========================= */
-
-.coin{
+.intro-logo{
     position:relative;
-    z-index:10;
 
-    width:300px;
-    height:300px;
+    width:min(48vw,430px);
+    aspect-ratio:1/1;
+
+    z-index:10;
 
     transform-style:preserve-3d;
 
     animation:
-        coinAppear .8s ease-out forwards,
-        coinRotate 2.7s cubic-bezier(.18,.72,.18,1) .45s forwards;
+        logoIntro .8s ease-out forwards,
+        logoSpin 2.7s cubic-bezier(.18,.72,.15,1) .45s forwards;
 }
 
-.coin img{
+.intro-logo img{
     width:100%;
     height:100%;
-
-    display:block;
 
     object-fit:cover;
 
     border-radius:50%;
 
-    border:4px solid #a900ff;
+    display:block;
+
+    border:4px solid #9b00ff;
 
     box-shadow:
-        0 0 20px #a900ff,
-        0 0 55px rgba(160,0,255,.8),
-        0 0 120px rgba(100,0,255,.35);
+        0 0 20px #9700ff,
+        0 0 50px #8000ff,
+        0 0 110px rgba(140,0,255,.85),
+        0 0 180px rgba(90,0,180,.45);
 
     backface-visibility:hidden;
 }
 
-@keyframes coinAppear{
-    0%{
+@keyframes logoIntro{
+    from{
         opacity:0;
-        transform:scale(.05);
+        transform:scale(.15);
     }
 
-    100%{
+    to{
         opacity:1;
         transform:scale(1);
     }
 }
 
-/* בדיוק סיבוב אחד */
+/* בדיוק 360 מעלות */
 
-@keyframes coinRotate{
-    0%{
+@keyframes logoSpin{
+    from{
         transform:rotateY(0deg);
     }
 
-    100%{
+    to{
         transform:rotateY(360deg);
     }
 }
 
-/* =========================
+/* =================================
    WEBSITE
-========================= */
+================================= */
 
 #site{
     position:relative;
-    z-index:2;
 
     min-height:100vh;
 
-    padding:45px 20px 35px;
+    padding:
+        55px 18px 35px;
 
     opacity:0;
 
-    transform:translateY(20px);
+    transform:translateY(25px);
 
     transition:
-        opacity .9s ease,
-        transform .9s ease;
+        opacity 1s ease,
+        transform 1s ease;
 }
 
 #site.show{
@@ -211,36 +322,71 @@ body{
 }
 
 .container{
-    width:min(100%,760px);
+    width:min(100%,720px);
     margin:auto;
+
     text-align:center;
+
+    position:relative;
 }
 
-/* =========================
-   LOGO
-========================= */
+/* =================================
+   PURPLE ENERGY BEHIND SITE
+================================= */
+
+.container::before{
+    content:"";
+
+    position:absolute;
+
+    width:900px;
+    height:900px;
+
+    left:50%;
+    top:300px;
+
+    transform:translate(-50%,-50%);
+
+    z-index:-1;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(150,0,255,.25),
+            rgba(80,0,150,.12) 25%,
+            transparent 65%
+        );
+
+    filter:blur(35px);
+
+    pointer-events:none;
+}
+
+/* =================================
+   MAIN LOGO
+================================= */
 
 .logo-wrap{
-    width:190px;
-    height:190px;
+    width:min(190px,38vw);
+    aspect-ratio:1/1;
 
-    margin:0 auto 20px;
+    margin:0 auto 18px;
 
-    padding:4px;
+    padding:3px;
 
     border-radius:50%;
 
     background:
         linear-gradient(
             135deg,
-            #6500ff,
-            #d65cff,
-            #8200ff
+            #6400ff,
+            #d15cff,
+            #7900ff
         );
 
     box-shadow:
-        0 0 20px rgba(170,0,255,.8),
-        0 0 50px rgba(130,0,255,.4);
+        0 0 20px rgba(160,0,255,.8),
+        0 0 55px rgba(130,0,255,.5);
 }
 
 .logo{
@@ -248,50 +394,61 @@ body{
     height:100%;
 
     overflow:hidden;
+
     border-radius:50%;
 
-    background:#020006;
+    background:#010003;
 }
 
 .logo img{
     width:100%;
     height:100%;
+
     object-fit:cover;
 }
 
-/* =========================
+/* =================================
    TITLE
-========================= */
+================================= */
 
 h1{
-    font-size:clamp(42px,8vw,72px);
+    font-size:clamp(42px,8vw,70px);
+
     font-weight:900;
 
-    letter-spacing:-2px;
+    letter-spacing:-3px;
 
     margin-bottom:8px;
+
+    text-shadow:
+        0 0 20px rgba(255,255,255,.12);
 }
 
 h1 span{
-    color:#c64cff;
+    color:#bd43ff;
 
     text-shadow:
-        0 0 15px rgba(198,76,255,.6);
+        0 0 15px rgba(190,60,255,.7),
+        0 0 35px rgba(140,0,255,.4);
 }
 
 .subtitle{
-    color:#c64cff;
+    color:#c24dff;
 
     font-size:14px;
+
     font-weight:800;
 
     letter-spacing:6px;
 
-    margin-bottom:18px;
+    margin-bottom:17px;
+
+    text-shadow:
+        0 0 12px rgba(190,60,255,.7);
 }
 
 .divider{
-    width:100px;
+    width:95px;
     height:4px;
 
     margin:0 auto 30px;
@@ -302,53 +459,75 @@ h1 span{
 
     box-shadow:
         0 0 10px #b000ff,
-        0 0 25px #b000ff;
+        0 0 25px #9b00ff,
+        0 0 45px rgba(155,0,255,.7);
 }
 
-/* =========================
+/* =================================
    LINKS
-========================= */
+================================= */
 
 .links{
     display:flex;
+
     flex-direction:column;
-    gap:16px;
+
+    gap:13px;
 }
 
 .link{
-    min-height:84px;
+    position:relative;
+
+    min-height:76px;
 
     display:grid;
 
     grid-template-columns:
-        70px
+        65px
         1fr
-        40px;
+        35px;
 
     align-items:center;
 
-    padding:0 20px;
+    padding:0 18px;
 
     text-decoration:none;
 
-    border-radius:18px;
-
-    background:rgba(3,0,8,.9);
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.94),
+            rgba(8,0,13,.90),
+            rgba(0,0,0,.94)
+        );
 
     border:2px solid currentColor;
 
+    border-radius:16px;
+
+    box-shadow:
+        inset 0 0 20px rgba(120,0,180,.06);
+
     transition:
         transform .2s ease,
-        box-shadow .2s ease;
+        box-shadow .2s ease,
+        background .2s ease;
 }
 
 .link:hover{
-    transform:translateY(-4px) scale(1.01);
+    transform:
+        translateY(-3px)
+        scale(1.01);
+
+    background:
+        rgba(10,0,17,.98);
 }
 
 .icon{
     display:flex;
+
     align-items:center;
+
     justify-content:flex-start;
 }
 
@@ -360,117 +539,169 @@ h1 span{
 .name{
     text-align:center;
 
-    font-size:22px;
+    font-size:21px;
+
     font-weight:800;
 }
 
 .arrow{
     text-align:right;
-    font-size:34px;
+
+    font-size:35px;
+
+    line-height:1;
 }
 
-/* =========================
+/* =================================
    COLORS
-========================= */
+================================= */
 
 .kick{
-    color:#53ff00;
+    color:#55ff00;
+
+    box-shadow:
+        0 0 20px rgba(85,255,0,.15);
 }
 
 .youtube{
     color:#ff2020;
+
+    box-shadow:
+        0 0 20px rgba(255,20,20,.12);
 }
 
 .discord{
-    color:#8c62ff;
+    color:#8d63ff;
+
+    box-shadow:
+        0 0 20px rgba(141,99,255,.12);
 }
 
 .tiktok{
     color:white;
+
+    box-shadow:
+        0 0 20px rgba(0,242,234,.08);
 }
 
 .twitch{
-    color:#a64cff;
+    color:#a84cff;
+
+    box-shadow:
+        0 0 20px rgba(168,76,255,.12);
 }
 
 .instagram{
-    color:#ff4f9d;
+    color:#ff4c9d;
+
+    box-shadow:
+        0 0 20px rgba(255,76,157,.12);
 }
 
 .paypal{
-    color:#2797ff;
+    color:#168cff;
+
+    box-shadow:
+        0 0 20px rgba(22,140,255,.12);
 }
 
+/* =================================
+   TIKTOK EFFECT
+================================= */
+
+.tiktok .icon svg{
+    filter:
+        drop-shadow(3px 0 0 #ff0050)
+        drop-shadow(-3px 0 0 #00f2ea);
+}
+
+/* =================================
+   HOVERS
+================================= */
+
 .kick:hover{
-    box-shadow:0 0 30px rgba(83,255,0,.4);
+    box-shadow:
+        0 0 28px rgba(85,255,0,.35);
 }
 
 .youtube:hover{
-    box-shadow:0 0 30px rgba(255,30,30,.4);
+    box-shadow:
+        0 0 28px rgba(255,20,20,.35);
 }
 
 .discord:hover{
-    box-shadow:0 0 30px rgba(140,98,255,.4);
+    box-shadow:
+        0 0 28px rgba(141,99,255,.35);
 }
 
 .tiktok:hover{
-    box-shadow:0 0 30px rgba(0,242,234,.35);
+    box-shadow:
+        0 0 28px rgba(0,242,234,.3);
 }
 
 .twitch:hover{
-    box-shadow:0 0 30px rgba(166,76,255,.4);
+    box-shadow:
+        0 0 28px rgba(168,76,255,.35);
 }
 
 .instagram:hover{
-    box-shadow:0 0 30px rgba(255,79,157,.4);
+    box-shadow:
+        0 0 28px rgba(255,76,157,.35);
 }
 
 .paypal:hover{
-    box-shadow:0 0 30px rgba(39,151,255,.4);
+    box-shadow:
+        0 0 28px rgba(22,140,255,.35);
 }
 
+/* =================================
+   FOOTER
+================================= */
+
 footer{
-    margin-top:32px;
+    margin-top:30px;
+
     color:#777;
+
     font-size:13px;
 }
 
 footer span{
-    color:#c64cff;
+    color:#c14cff;
+
     font-weight:800;
 }
 
-/* =========================
+/* =================================
    MOBILE
-========================= */
+================================= */
 
 @media(max-width:600px){
 
     #site{
-        padding-top:35px;
+        padding-top:32px;
     }
 
-    .coin{
-        width:230px;
-        height:230px;
+    .intro-logo{
+        width:65vw;
+        max-width:300px;
     }
 
     .logo-wrap{
-        width:150px;
-        height:150px;
+        width:145px;
     }
 
     .link{
-        min-height:74px;
+        min-height:70px;
 
         grid-template-columns:
-            54px
+            55px
             1fr
             30px;
 
         padding:0 14px;
 
-        border-radius:15px;
+        border-radius:14px;
     }
 
     .icon svg{
@@ -483,11 +714,11 @@ footer span{
     }
 
     .arrow{
-        font-size:28px;
+        font-size:30px;
     }
 
     .subtitle{
-        font-size:11px;
+        font-size:10px;
         letter-spacing:4px;
     }
 }
@@ -496,34 +727,41 @@ footer span{
 
 <body>
 
-<div id="space"></div>
+<div class="energy"></div>
 
-<!-- =========================
+<!-- =============================
      INTRO
-========================= -->
+============================= -->
 
 <div id="intro">
 
-    <div class="coin">
+    <div id="hyperspace"></div>
+
+    <div class="intro-logo">
         <img src="logo.png" alt="YardenRGS">
     </div>
 
 </div>
 
 
-<!-- =========================
-     MAIN WEBSITE
-========================= -->
+<!-- =============================
+     MAIN SITE
+============================= -->
 
 <div id="site">
 
 <div class="container">
+
+    <!-- LOGO -->
 
     <div class="logo-wrap">
         <div class="logo">
             <img src="logo.png" alt="YardenRGS">
         </div>
     </div>
+
+
+    <!-- TITLE -->
 
     <h1>
         Yarden<span>RGS</span>
@@ -548,7 +786,9 @@ footer span{
         >
 
             <div class="icon">
+
                 <svg viewBox="0 0 64 64">
+
                     <path
                         fill="currentColor"
                         d="
@@ -567,12 +807,18 @@ footer span{
                         Z
                         "
                     />
+
                 </svg>
+
             </div>
 
-            <div class="name">Kick</div>
+            <div class="name">
+                Kick
+            </div>
 
-            <div class="arrow">›</div>
+            <div class="arrow">
+                ›
+            </div>
 
         </a>
 
@@ -589,6 +835,7 @@ footer span{
             <div class="icon">
 
                 <svg viewBox="0 0 24 24" fill="currentColor">
+
                     <path d="
                     M23.5 6.2
                     A3 3 0 0 0 21.4 4.1
@@ -604,17 +851,24 @@ footer span{
                     A31 31 0 0 0 24 12
                     A31 31 0 0 0 23.5 6.2
                     Z
+
                     M9.6 15.5
                     V8.5
                     L15.8 12
-                    Z"/>
+                    Z
+                    "/>
+
                 </svg>
 
             </div>
 
-            <div class="name">YouTube</div>
+            <div class="name">
+                YouTube
+            </div>
 
-            <div class="arrow">›</div>
+            <div class="arrow">
+                ›
+            </div>
 
         </a>
 
@@ -631,6 +885,7 @@ footer span{
             <div class="icon">
 
                 <svg viewBox="0 0 24 24" fill="currentColor">
+
                     <path d="
                     M19.5 5.1
                     A16.2 16.2 0 0 0 15.6 4
@@ -650,25 +905,33 @@ footer span{
                     C18.2 16 19.8 15.1 21.5 13.8
                     C21.8 10.5 20.7 7.5 19.5 5.1
                     Z
+
                     M8.5 12.7
                     C7.5 12.7 6.7 11.8 6.7 10.7
                     S7.5 8.7 8.5 8.7
                     S10.3 9.6 10.3 10.7
                     S9.5 12.7 8.5 12.7
                     Z
+
                     M15.5 12.7
                     C14.5 12.7 13.7 11.8 13.7 10.7
                     S14.5 8.7 15.5 8.7
                     S17.3 9.6 17.3 10.7
                     S16.5 12.7 15.5 12.7
-                    Z"/>
+                    Z
+                    "/>
+
                 </svg>
 
             </div>
 
-            <div class="name">Discord</div>
+            <div class="name">
+                Discord
+            </div>
 
-            <div class="arrow">›</div>
+            <div class="arrow">
+                ›
+            </div>
 
         </a>
 
@@ -685,6 +948,7 @@ footer span{
             <div class="icon">
 
                 <svg viewBox="0 0 24 24" fill="currentColor">
+
                     <path d="
                     M16.7 3
                     C17.1 5.2 18.4 6.5 20.5 6.7
@@ -702,14 +966,20 @@ footer span{
                     C10.7 19.4 12.1 18.2 12.1 15.8
                     V3
                     H16.7
-                    Z"/>
+                    Z
+                    "/>
+
                 </svg>
 
             </div>
 
-            <div class="name">TikTok</div>
+            <div class="name">
+                TikTok
+            </div>
 
-            <div class="arrow">›</div>
+            <div class="arrow">
+                ›
+            </div>
 
         </a>
 
@@ -726,6 +996,7 @@ footer span{
             <div class="icon">
 
                 <svg viewBox="0 0 24 24" fill="currentColor">
+
                     <path d="
                     M4 3
                     H22
@@ -736,6 +1007,7 @@ footer span{
                     V20
                     H4
                     Z
+
                     M7 6
                     V17
                     H10
@@ -745,23 +1017,31 @@ footer span{
                     L20 14
                     V6
                     Z
+
                     M9 8
                     H11
                     V13
                     H9
                     Z
+
                     M14 8
                     H16
                     V13
                     H14
-                    Z"/>
+                    Z
+                    "/>
+
                 </svg>
 
             </div>
 
-            <div class="name">Twitch</div>
+            <div class="name">
+                Twitch
+            </div>
 
-            <div class="arrow">›</div>
+            <div class="arrow">
+                ›
+            </div>
 
         </a>
 
@@ -778,6 +1058,7 @@ footer span{
             <div class="icon">
 
                 <svg viewBox="0 0 24 24" fill="currentColor">
+
                     <path d="
                     M7 2
                     H17
@@ -789,6 +1070,7 @@ footer span{
                     V7
                     A5 5 0 0 1 7 2
                     Z
+
                     M7 4
                     A3 3 0 0 0 4 7
                     V17
@@ -798,21 +1080,34 @@ footer span{
                     V7
                     A3 3 0 0 0 17 4
                     Z
+
                     M12 7
                     A5 5 0 1 0 12 17
                     A5 5 0 0 0 12 7
                     Z
+
                     M12 9
                     A3 3 0 1 1 12 15
                     A3 3 0 0 1 12 9
-                    Z"/>
+                    Z
+
+                    M17.5 6
+                    A1.2 1.2 0 1 0 17.5 8.4
+                    A1.2 1.2 0 0 0 17.5 6
+                    Z
+                    "/>
+
                 </svg>
 
             </div>
 
-            <div class="name">Instagram</div>
+            <div class="name">
+                Instagram
+            </div>
 
-            <div class="arrow">›</div>
+            <div class="arrow">
+                ›
+            </div>
 
         </a>
 
@@ -829,6 +1124,7 @@ footer span{
             <div class="icon">
 
                 <svg viewBox="0 0 24 24" fill="currentColor">
+
                     <path d="
                     M7 3
                     H14.2
@@ -838,19 +1134,26 @@ footer span{
                     L8.8 19
                     H4.4
                     Z
+
                     M10.4 10
                     H13
                     C14.8 10 16 9 16 7.5
                     C16 6.3 15.1 5.5 13.5 5.5
                     H11.6
-                    Z"/>
+                    Z
+                    "/>
+
                 </svg>
 
             </div>
 
-            <div class="name">PayPal</div>
+            <div class="name">
+                PayPal
+            </div>
 
-            <div class="arrow">›</div>
+            <div class="arrow">
+                ›
+            </div>
 
         </a>
 
@@ -868,71 +1171,107 @@ footer span{
 
 <script>
 
-/* =========================
+/* =================================
    CREATE HYPERSPACE STARS
-========================= */
+================================= */
 
-const space = document.getElementById("space");
+const hyperspace =
+    document.getElementById("hyperspace");
 
-for(let i = 0; i < 220; i++){
+/* הרבה כוכבים */
 
-    const star = document.createElement("div");
+for(let i=0;i<260;i++){
 
-    star.className = "star";
+    const star =
+        document.createElement("div");
+
+    star.className="star";
+
+    const angle =
+        Math.random()*Math.PI*2;
 
     /*
-       Random direction from center
-       so stars fly OUTWARD in every direction.
+       Very large distance
+       so the stars fly OUTWARD
+       from the center.
     */
 
-    const angle = Math.random() * Math.PI * 2;
-
     const distance =
-        500 + Math.random() * 1000;
+        650 + Math.random()*1100;
 
     const x =
-        Math.cos(angle) * distance;
+        Math.cos(angle)*distance;
 
     const y =
-        Math.sin(angle) * distance;
+        Math.sin(angle)*distance;
 
     star.style.setProperty(
         "--x",
-        x + "px"
+        x+"px"
     );
 
     star.style.setProperty(
         "--y",
-        y + "px"
+        y+"px"
     );
 
     star.style.setProperty(
-        "--speed",
-        (1.1 + Math.random() * 2.2) + "s"
+        "--duration",
+        (1.0+Math.random()*2.2)+"s"
     );
 
     star.style.setProperty(
         "--delay",
-        (-Math.random() * 3) + "s"
+        (-Math.random()*3)+"s"
     );
 
-    space.appendChild(star);
+    hyperspace.appendChild(star);
 }
 
 
-/* =========================
-   SHOW WEBSITE
-========================= */
+/* =================================
+   LONG STREAKS
+================================= */
 
-window.addEventListener("load", () => {
+for(let i=0;i<75;i++){
+
+    const streak =
+        document.createElement("div");
+
+    streak.className="streak";
+
+    streak.style.setProperty(
+        "--angle",
+        Math.random()*360+"deg"
+    );
+
+    streak.style.setProperty(
+        "--duration",
+        (1.2+Math.random()*2)+"s"
+    );
+
+    streak.style.setProperty(
+        "--delay",
+        (-Math.random()*3)+"s"
+    );
+
+    hyperspace.appendChild(streak);
+}
+
+
+/* =================================
+   SHOW WEBSITE
+================================= */
+
+window.addEventListener("load",()=>{
 
     /*
-       Coin:
-       0.45s delay + 2.7s rotation
-       = 3.15 seconds.
+       .45s delay
+       + 2.7s rotation
+       + small pause
     */
 
-    setTimeout(() => {
+    setTimeout(()=>{
 
         document
             .getElementById("intro")
@@ -942,7 +1281,7 @@ window.addEventListener("load", () => {
             .getElementById("site")
             .classList.add("show");
 
-    }, 3350);
+    },3400);
 
 });
 
