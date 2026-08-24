@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,709 +17,270 @@ html,body{
 }
 
 body{
-    background:#010003;
+    background:#000;
     color:white;
-    font-family:Arial,Helvetica,sans-serif;
+    font-family:Arial,sans-serif;
     overflow-x:hidden;
 }
 
-/* =================================
-   DARK SPACE BACKGROUND
-================================= */
+/* ===== STAR BACKGROUND ===== */
 
-body::before{
-    content:"";
+#stars{
     position:fixed;
-    inset:0;
-    z-index:-5;
-
-    background:
-        radial-gradient(
-            ellipse at center,
-            rgba(105,0,180,.16) 0%,
-            rgba(25,0,45,.10) 30%,
-            #010003 72%
-        );
-}
-
-/* Purple energy */
-
-.energy{
-    position:fixed;
-    inset:-20%;
-    z-index:-4;
-    pointer-events:none;
-
-    background:
-        radial-gradient(
-            ellipse at 50% 38%,
-            rgba(140,0,255,.30) 0%,
-            rgba(85,0,150,.17) 17%,
-            transparent 48%
-        );
-
-    filter:blur(18px);
-
-    animation:energyPulse 6s ease-in-out infinite;
-}
-
-@keyframes energyPulse{
-    0%,100%{
-        opacity:.55;
-        transform:scale(1);
-    }
-
-    50%{
-        opacity:1;
-        transform:scale(1.08);
-    }
-}
-
-/* =================================
-   INTRO
-================================= */
-
-#intro{
-    position:fixed;
-    inset:0;
-    z-index:9999;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    overflow:hidden;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(110,0,210,.20),
-            rgba(20,0,35,.12) 35%,
-            #000 78%
-        );
-
-    transition:
-        opacity .9s ease,
-        visibility .9s ease;
-}
-
-#intro.hide{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-}
-
-/* =================================
-   HYPERSPACE
-================================= */
-
-#hyperspace{
-    position:absolute;
     inset:0;
     overflow:hidden;
+    pointer-events:none;
+    z-index:0;
 }
 
 .star{
     position:absolute;
-
-    left:50%;
-    top:50%;
-
     width:2px;
     height:2px;
-
+    background:#fff;
     border-radius:50%;
-
-    background:white;
-
     box-shadow:
-        0 0 5px white,
-        0 0 12px #a800ff,
-        0 0 22px #7b00ff;
-
-    transform-origin:center;
-
-    animation:
-        fly var(--duration) linear infinite;
-
+        0 0 5px #fff,
+        0 0 10px #9d00ff;
+    animation:moveStar var(--speed) linear infinite;
     animation-delay:var(--delay);
 }
 
-@keyframes fly{
-
+@keyframes moveStar{
     0%{
-        transform:
-            translate(-50%,-50%)
-            translate(0,0)
-            scale(.1);
-
+        transform:translate(0,0) scale(.5);
         opacity:0;
     }
 
-    5%{
+    10%{
         opacity:1;
     }
 
     100%{
         transform:
-            translate(-50%,-50%)
             translate(var(--x),var(--y))
-            scale(5);
-
+            scale(2.8);
         opacity:0;
     }
 }
 
-/* Long Star-Wars style streaks */
+/* ===== PURPLE ENERGY ===== */
 
-.streak{
-    position:absolute;
-
+.energy{
+    position:fixed;
+    width:900px;
+    height:900px;
     left:50%;
-    top:50%;
-
-    width:2px;
-    height:120px;
-
-    border-radius:50%;
-
+    top:300px;
+    transform:translate(-50%,-50%);
     background:
-        linear-gradient(
-            to bottom,
-            transparent,
-            white 35%,
-            #c06cff 70%,
-            transparent
+        radial-gradient(
+            circle,
+            rgba(150,0,255,.30),
+            rgba(90,0,150,.15) 35%,
+            transparent 70%
         );
-
-    box-shadow:
-        0 0 8px #b000ff,
-        0 0 18px #8c00ff;
-
-    transform-origin:50% 100%;
-
-    animation:
-        streakFly var(--duration) linear infinite;
-
-    animation-delay:var(--delay);
+    filter:blur(35px);
+    pointer-events:none;
+    z-index:1;
 }
 
-@keyframes streakFly{
-
-    0%{
-        transform:
-            translate(-50%,-50%)
-            rotate(var(--angle))
-            translateY(0)
-            scaleY(.1);
-
-        opacity:0;
-    }
-
-    8%{
-        opacity:1;
-    }
-
-    100%{
-        transform:
-            translate(-50%,-50%)
-            rotate(var(--angle))
-            translateY(-850px)
-            scaleY(1.8);
-
-        opacity:0;
-    }
-}
-
-/* =================================
-   INTRO LOGO
-================================= */
-
-.intro-logo{
-    position:relative;
-
-    width:min(48vw,430px);
-    aspect-ratio:1/1;
-
-    z-index:10;
-
-    transform-style:preserve-3d;
-
-    animation:
-        logoIntro .8s ease-out forwards,
-        logoSpin 2.7s cubic-bezier(.18,.72,.15,1) .45s forwards;
-}
-
-.intro-logo img{
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    border-radius:50%;
-
-    display:block;
-
-    border:4px solid #9b00ff;
-
-    box-shadow:
-        0 0 20px #9700ff,
-        0 0 50px #8000ff,
-        0 0 110px rgba(140,0,255,.85),
-        0 0 180px rgba(90,0,180,.45);
-
-    backface-visibility:hidden;
-}
-
-@keyframes logoIntro{
-    from{
-        opacity:0;
-        transform:scale(.15);
-    }
-
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
-}
-
-/* בדיוק 360 מעלות */
-
-@keyframes logoSpin{
-    from{
-        transform:rotateY(0deg);
-    }
-
-    to{
-        transform:rotateY(360deg);
-    }
-}
-
-/* =================================
-   WEBSITE
-================================= */
+/* ===== SITE ===== */
 
 #site{
     position:relative;
-
-    min-height:100vh;
-
-    padding:
-        55px 18px 35px;
-
-    opacity:0;
-
-    transform:translateY(25px);
-
-    transition:
-        opacity 1s ease,
-        transform 1s ease;
-}
-
-#site.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
-.container{
-    width:min(100%,720px);
+    z-index:2;
+    width:100%;
+    max-width:620px;
     margin:auto;
-
+    padding:25px 18px 30px;
     text-align:center;
-
-    position:relative;
 }
 
-/* =================================
-   PURPLE ENERGY BEHIND SITE
-================================= */
-
-.container::before{
-    content:"";
-
-    position:absolute;
-
-    width:900px;
-    height:900px;
-
-    left:50%;
-    top:300px;
-
-    transform:translate(-50%,-50%);
-
-    z-index:-1;
-
-    background:
-        radial-gradient(
-            ellipse at center,
-            rgba(150,0,255,.25),
-            rgba(80,0,150,.12) 25%,
-            transparent 65%
-        );
-
-    filter:blur(35px);
-
-    pointer-events:none;
-}
-
-/* =================================
-   MAIN LOGO
-================================= */
-
-.logo-wrap{
-    width:min(190px,38vw);
-    aspect-ratio:1/1;
-
-    margin:0 auto 18px;
-
-    padding:3px;
-
-    border-radius:50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #6400ff,
-            #d15cff,
-            #7900ff
-        );
-
-    box-shadow:
-        0 0 20px rgba(160,0,255,.8),
-        0 0 55px rgba(130,0,255,.5);
-}
+/* ===== LOGO ===== */
 
 .logo{
-    width:100%;
-    height:100%;
-
-    overflow:hidden;
-
+    width:125px;
+    height:125px;
+    margin:0 auto 8px;
     border-radius:50%;
-
-    background:#010003;
+    overflow:hidden;
+    border:3px solid #8e00ff;
+    box-shadow:
+        0 0 15px #8e00ff,
+        0 0 35px #7200ff;
 }
 
 .logo img{
     width:100%;
     height:100%;
-
     object-fit:cover;
 }
 
-/* =================================
-   TITLE
-================================= */
+/* ===== TITLE ===== */
 
 h1{
-    font-size:clamp(42px,8vw,70px);
-
+    font-size:42px;
     font-weight:900;
-
-    letter-spacing:-3px;
-
-    margin-bottom:8px;
-
-    text-shadow:
-        0 0 20px rgba(255,255,255,.12);
+    letter-spacing:-2px;
+    margin-bottom:3px;
 }
 
 h1 span{
-    color:#bd43ff;
-
+    color:#a83cff;
     text-shadow:
-        0 0 15px rgba(190,60,255,.7),
-        0 0 35px rgba(140,0,255,.4);
+        0 0 10px #a83cff,
+        0 0 25px #7200ff;
 }
 
 .subtitle{
-    color:#c24dff;
-
-    font-size:14px;
-
-    font-weight:800;
-
-    letter-spacing:6px;
-
-    margin-bottom:17px;
-
-    text-shadow:
-        0 0 12px rgba(190,60,255,.7);
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:4px;
+    color:#c64cff;
+    margin-bottom:8px;
 }
 
-.divider{
-    width:95px;
-    height:4px;
-
-    margin:0 auto 30px;
-
-    border-radius:20px;
-
-    background:#b000ff;
-
+.line{
+    width:65px;
+    height:3px;
+    margin:0 auto 18px;
+    background:#a000ff;
+    border-radius:10px;
     box-shadow:
-        0 0 10px #b000ff,
-        0 0 25px #9b00ff,
-        0 0 45px rgba(155,0,255,.7);
+        0 0 8px #a000ff,
+        0 0 20px #8500ff;
 }
 
-/* =================================
-   LINKS
-================================= */
+/* ===== LINKS ===== */
 
 .links{
     display:flex;
-
     flex-direction:column;
-
-    gap:13px;
+    gap:7px;
 }
 
 .link{
-    position:relative;
-
-    min-height:76px;
-
+    height:56px;
     display:grid;
-
-    grid-template-columns:
-        65px
-        1fr
-        35px;
-
+    grid-template-columns:55px 1fr 35px;
     align-items:center;
-
-    padding:0 18px;
-
+    padding:0 13px;
     text-decoration:none;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0,0,0,.94),
-            rgba(8,0,13,.90),
-            rgba(0,0,0,.94)
-        );
-
+    background:rgba(0,0,0,.72);
     border:2px solid currentColor;
-
-    border-radius:16px;
-
-    box-shadow:
-        inset 0 0 20px rgba(120,0,180,.06);
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
+    border-radius:12px;
+    transition:.2s;
 }
 
 .link:hover{
-    transform:
-        translateY(-3px)
-        scale(1.01);
-
-    background:
-        rgba(10,0,17,.98);
+    transform:scale(1.02);
+    filter:brightness(1.3);
 }
 
 .icon{
     display:flex;
-
-    align-items:center;
-
     justify-content:flex-start;
+    align-items:center;
 }
 
 .icon svg{
-    width:37px;
-    height:37px;
+    width:30px;
+    height:30px;
+    fill:currentColor;
 }
 
 .name{
-    text-align:center;
-
-    font-size:21px;
-
+    font-size:17px;
     font-weight:800;
+    text-align:center;
 }
 
 .arrow{
+    font-size:30px;
     text-align:right;
-
-    font-size:35px;
-
-    line-height:1;
 }
 
-/* =================================
-   COLORS
-================================= */
+/* ===== COLORS ===== */
 
 .kick{
-    color:#55ff00;
-
-    box-shadow:
-        0 0 20px rgba(85,255,0,.15);
+    color:#57ff00;
+    box-shadow:0 0 12px rgba(87,255,0,.22);
 }
 
 .youtube{
-    color:#ff2020;
-
-    box-shadow:
-        0 0 20px rgba(255,20,20,.12);
+    color:#ff2424;
+    box-shadow:0 0 12px rgba(255,36,36,.20);
 }
 
 .discord{
-    color:#8d63ff;
-
-    box-shadow:
-        0 0 20px rgba(141,99,255,.12);
+    color:#8b63ff;
+    box-shadow:0 0 12px rgba(139,99,255,.20);
 }
 
 .tiktok{
-    color:white;
-
-    box-shadow:
-        0 0 20px rgba(0,242,234,.08);
+    color:#fff;
+    box-shadow:0 0 12px rgba(255,255,255,.15);
 }
 
 .twitch{
-    color:#a84cff;
-
-    box-shadow:
-        0 0 20px rgba(168,76,255,.12);
+    color:#a846ff;
+    box-shadow:0 0 12px rgba(168,70,255,.22);
 }
 
 .instagram{
     color:#ff4c9d;
-
-    box-shadow:
-        0 0 20px rgba(255,76,157,.12);
+    box-shadow:0 0 12px rgba(255,76,157,.20);
 }
 
 .paypal{
     color:#168cff;
-
-    box-shadow:
-        0 0 20px rgba(22,140,255,.12);
+    box-shadow:0 0 12px rgba(22,140,255,.20);
 }
 
-/* =================================
-   TIKTOK EFFECT
-================================= */
+/* TikTok colors */
 
 .tiktok .icon svg{
     filter:
-        drop-shadow(3px 0 0 #ff0050)
-        drop-shadow(-3px 0 0 #00f2ea);
+        drop-shadow(3px 0 0 #00f2ea)
+        drop-shadow(-3px 0 0 #ff0050);
 }
 
-/* =================================
-   HOVERS
-================================= */
-
-.kick:hover{
-    box-shadow:
-        0 0 28px rgba(85,255,0,.35);
-}
-
-.youtube:hover{
-    box-shadow:
-        0 0 28px rgba(255,20,20,.35);
-}
-
-.discord:hover{
-    box-shadow:
-        0 0 28px rgba(141,99,255,.35);
-}
-
-.tiktok:hover{
-    box-shadow:
-        0 0 28px rgba(0,242,234,.3);
-}
-
-.twitch:hover{
-    box-shadow:
-        0 0 28px rgba(168,76,255,.35);
-}
-
-.instagram:hover{
-    box-shadow:
-        0 0 28px rgba(255,76,157,.35);
-}
-
-.paypal:hover{
-    box-shadow:
-        0 0 28px rgba(22,140,255,.35);
-}
-
-/* =================================
-   FOOTER
-================================= */
+/* ===== FOOTER ===== */
 
 footer{
-    margin-top:30px;
-
+    margin-top:18px;
+    font-size:11px;
     color:#777;
-
-    font-size:13px;
 }
 
 footer span{
-    color:#c14cff;
-
-    font-weight:800;
+    color:#b43cff;
 }
 
-/* =================================
-   MOBILE
-================================= */
+/* ===== MOBILE ===== */
 
 @media(max-width:600px){
 
     #site{
-        padding-top:32px;
+        padding:20px 15px 25px;
     }
 
-    .intro-logo{
-        width:65vw;
-        max-width:300px;
+    .logo{
+        width:110px;
+        height:110px;
     }
 
-    .logo-wrap{
-        width:145px;
+    h1{
+        font-size:36px;
     }
 
     .link{
-        min-height:70px;
-
-        grid-template-columns:
-            55px
-            1fr
-            30px;
-
-        padding:0 14px;
-
-        border-radius:14px;
-    }
-
-    .icon svg{
-        width:30px;
-        height:30px;
+        height:53px;
     }
 
     .name{
-        font-size:18px;
-    }
-
-    .arrow{
-        font-size:30px;
-    }
-
-    .subtitle{
-        font-size:10px;
-        letter-spacing:4px;
+        font-size:16px;
     }
 }
 </style>
@@ -727,41 +288,14 @@ footer span{
 
 <body>
 
+<div id="stars"></div>
 <div class="energy"></div>
-
-<!-- =============================
-     INTRO
-============================= -->
-
-<div id="intro">
-
-    <div id="hyperspace"></div>
-
-    <div class="intro-logo">
-        <img src="logo.png" alt="YardenRGS">
-    </div>
-
-</div>
-
-
-<!-- =============================
-     MAIN SITE
-============================= -->
 
 <div id="site">
 
-<div class="container">
-
-    <!-- LOGO -->
-
-    <div class="logo-wrap">
-        <div class="logo">
-            <img src="logo.png" alt="YardenRGS">
-        </div>
+    <div class="logo">
+        <img src="logo.png" alt="RGS">
     </div>
-
-
-    <!-- TITLE -->
 
     <h1>
         Yarden<span>RGS</span>
@@ -771,394 +305,122 @@ footer span{
         WELCOME TO MY LINKS
     </div>
 
-    <div class="divider"></div>
-
+    <div class="line"></div>
 
     <div class="links">
 
         <!-- KICK -->
-
-        <a
-            class="link kick"
-            href="https://kick.com/1nyrox"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+        <a class="link kick"
+           href="https://kick.com/1nyrox"
+           target="_blank">
 
             <div class="icon">
-
                 <svg viewBox="0 0 64 64">
-
-                    <path
-                        fill="currentColor"
-                        d="
-                        M10 8
-                        H24
-                        V25
-                        L39 8
-                        H55
-                        L38 29
-                        L56 56
-                        H39
-                        L25 38
-                        L24 39
-                        V56
-                        H10
-                        Z
-                        "
-                    />
-
+                    <path d="M10 8H24V25L39 8H55L38 29L56 56H39L25 38L24 39V56H10Z"/>
                 </svg>
-
             </div>
 
-            <div class="name">
-                Kick
-            </div>
-
-            <div class="arrow">
-                ›
-            </div>
-
+            <div class="name">Kick</div>
+            <div class="arrow">›</div>
         </a>
 
 
         <!-- YOUTUBE -->
-
-        <a
-            class="link youtube"
-            href="https://www.youtube.com/@1NyRoXx"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+        <a class="link youtube"
+           href="https://www.youtube.com/@1NyRoXx"
+           target="_blank">
 
             <div class="icon">
-
-                <svg viewBox="0 0 24 24" fill="currentColor">
-
-                    <path d="
-                    M23.5 6.2
-                    A3 3 0 0 0 21.4 4.1
-                    C19.5 3.5 12 3.5 12 3.5
-                    S4.5 3.5 2.6 4.1
-                    A3 3 0 0 0 .5 6.2
-                    A31 31 0 0 0 0 12
-                    A31 31 0 0 0 .5 17.8
-                    A3 3 0 0 0 2.6 19.9
-                    C4.5 20.5 12 20.5 12 20.5
-                    S19.5 20.5 21.4 19.9
-                    A3 3 0 0 0 23.5 17.8
-                    A31 31 0 0 0 24 12
-                    A31 31 0 0 0 23.5 6.2
-                    Z
-
-                    M9.6 15.5
-                    V8.5
-                    L15.8 12
-                    Z
-                    "/>
-
+                <svg viewBox="0 0 24 24">
+                    <path d="M23.5 6.2A3 3 0 0 0 21.4 4.1C19.5 3.5 12 3.5 12 3.5S4.5 3.5 2.6 4.1A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.5v-7l6.2 3.5-6.2 3.5Z"/>
                 </svg>
-
             </div>
 
-            <div class="name">
-                YouTube
-            </div>
-
-            <div class="arrow">
-                ›
-            </div>
-
+            <div class="name">YouTube</div>
+            <div class="arrow">›</div>
         </a>
 
 
         <!-- DISCORD -->
-
-        <a
-            class="link discord"
-            href="https://discord.gg/j3MSTy4Tg"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+        <a class="link discord"
+           href="https://discord.gg/j3MSTy4Tg"
+           target="_blank">
 
             <div class="icon">
-
-                <svg viewBox="0 0 24 24" fill="currentColor">
-
-                    <path d="
-                    M19.5 5.1
-                    A16.2 16.2 0 0 0 15.6 4
-                    L15.1 5
-                    A15 15 0 0 0 8.9 5
-                    L8.4 4
-                    A16.2 16.2 0 0 0 4.5 5.1
-                    C2 8.1 1.3 11 1.6 13.8
-                    C3.3 15.1 4.9 16 6.5 16.4
-                    L7.7 14.7
-                    C7.1 14.5 6.5 14.2 6 13.9
-                    L6.4 13.6
-                    C9.7 15.1 13.4 15.1 16.7 13.6
-                    L17.1 13.9
-                    C16.6 14.2 16 14.5 15.4 14.7
-                    L16.6 16.4
-                    C18.2 16 19.8 15.1 21.5 13.8
-                    C21.8 10.5 20.7 7.5 19.5 5.1
-                    Z
-
-                    M8.5 12.7
-                    C7.5 12.7 6.7 11.8 6.7 10.7
-                    S7.5 8.7 8.5 8.7
-                    S10.3 9.6 10.3 10.7
-                    S9.5 12.7 8.5 12.7
-                    Z
-
-                    M15.5 12.7
-                    C14.5 12.7 13.7 11.8 13.7 10.7
-                    S14.5 8.7 15.5 8.7
-                    S17.3 9.6 17.3 10.7
-                    S16.5 12.7 15.5 12.7
-                    Z
-                    "/>
-
+                <svg viewBox="0 0 24 24">
+                    <path d="M19.5 5.1A16.2 16.2 0 0 0 15.6 4l-.5 1a15 15 0 0 0-6.2 0l-.5-1a16.2 16.2 0 0 0-3.9 1.1C2 8.1 1.3 11 1.6 13.8c1.7 1.3 3.3 2.2 4.9 2.6l1.2-1.7c-.6-.2-1.2-.5-1.7-.8l.4-.3c3.3 1.5 7 1.5 10.3 0l.4.3c-.5.3-1.1.6-1.7.8l1.2 1.7c1.6-.4 3.2-1.3 4.9-2.6.3-3.3-.8-6.3-2-8.7ZM8.5 12.7c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/>
                 </svg>
-
             </div>
 
-            <div class="name">
-                Discord
-            </div>
-
-            <div class="arrow">
-                ›
-            </div>
-
+            <div class="name">Discord</div>
+            <div class="arrow">›</div>
         </a>
 
 
         <!-- TIKTOK -->
-
-        <a
-            class="link tiktok"
-            href="https://www.tiktok.com/@1nyroxx"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+        <a class="link tiktok"
+           href="https://www.tiktok.com/@1nyroxx"
+           target="_blank">
 
             <div class="icon">
-
-                <svg viewBox="0 0 24 24" fill="currentColor">
-
-                    <path d="
-                    M16.7 3
-                    C17.1 5.2 18.4 6.5 20.5 6.7
-                    V9.9
-                    C18.6 10.1 17 9.5 15.5 8.5
-                    V15.6
-                    C15.5 20.1 12.4 22.8 8.5 22.8
-                    C4.9 22.8 2 20.2 2 16.6
-                    C2 12.9 5 10.2 8.7 10.2
-                    C9.2 10.2 9.7 10.3 10.2 10.4
-                    V13.8
-                    C9.8 13.7 9.4 13.6 9 13.6
-                    C7.3 13.6 5.9 14.7 5.9 16.5
-                    C5.9 18.2 7.2 19.4 8.8 19.4
-                    C10.7 19.4 12.1 18.2 12.1 15.8
-                    V3
-                    H16.7
-                    Z
-                    "/>
-
+                <svg viewBox="0 0 24 24">
+                    <path d="M16.7 3c.4 2.2 1.7 3.5 3.8 3.7v3.2c-1.9.2-3.5-.4-5-1.4v7.1c0 4.5-3.1 7.2-7 7.2-3.6 0-6.5-2.6-6.5-6.2 0-3.7 3-6.4 6.7-6.4.5 0 1 .1 1.5.2v3.4c-.4-.1-.8-.2-1.2-.2-1.7 0-3.1 1.1-3.1 2.9 0 1.7 1.3 2.9 2.9 2.9 1.9 0 3.3-1.2 3.3-3.6V3h4.6Z"/>
                 </svg>
-
             </div>
 
-            <div class="name">
-                TikTok
-            </div>
-
-            <div class="arrow">
-                ›
-            </div>
-
+            <div class="name">TikTok</div>
+            <div class="arrow">›</div>
         </a>
 
 
         <!-- TWITCH -->
-
-        <a
-            class="link twitch"
-            href="https://www.twitch.tv/1nyroxx"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+        <a class="link twitch"
+           href="https://www.twitch.tv/1nyroxx"
+           target="_blank">
 
             <div class="icon">
-
-                <svg viewBox="0 0 24 24" fill="currentColor">
-
-                    <path d="
-                    M4 3
-                    H22
-                    V15
-                    L17 20
-                    H12
-                    L9 23
-                    V20
-                    H4
-                    Z
-
-                    M7 6
-                    V17
-                    H10
-                    V20
-                    L13 17
-                    H17
-                    L20 14
-                    V6
-                    Z
-
-                    M9 8
-                    H11
-                    V13
-                    H9
-                    Z
-
-                    M14 8
-                    H16
-                    V13
-                    H14
-                    Z
-                    "/>
-
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 3h18v12l-5 5h-5l-3 3v-3H4V3Zm3 3v11h3v3l3-3h4l3-3V6H7Zm2 2h2v5H9V8Zm5 0h2v5h-2V8Z"/>
                 </svg>
-
             </div>
 
-            <div class="name">
-                Twitch
-            </div>
-
-            <div class="arrow">
-                ›
-            </div>
-
+            <div class="name">Twitch</div>
+            <div class="arrow">›</div>
         </a>
 
 
         <!-- INSTAGRAM -->
-
-        <a
-            class="link instagram"
-            href="https://www.instagram.com/nyroxgg1/?hl=en"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+        <a class="link instagram"
+           href="https://www.instagram.com/nyroxgg1/?hl=en"
+           target="_blank">
 
             <div class="icon">
-
-                <svg viewBox="0 0 24 24" fill="currentColor">
-
-                    <path d="
-                    M7 2
-                    H17
-                    A5 5 0 0 1 22 7
-                    V17
-                    A5 5 0 0 1 17 22
-                    H7
-                    A5 5 0 0 1 2 17
-                    V7
-                    A5 5 0 0 1 7 2
-                    Z
-
-                    M7 4
-                    A3 3 0 0 0 4 7
-                    V17
-                    A3 3 0 0 0 7 20
-                    H17
-                    A3 3 0 0 0 20 17
-                    V7
-                    A3 3 0 0 0 17 4
-                    Z
-
-                    M12 7
-                    A5 5 0 1 0 12 17
-                    A5 5 0 0 0 12 7
-                    Z
-
-                    M12 9
-                    A3 3 0 1 1 12 15
-                    A3 3 0 0 1 12 9
-                    Z
-
-                    M17.5 6
-                    A1.2 1.2 0 1 0 17.5 8.4
-                    A1.2 1.2 0 0 0 17.5 6
-                    Z
-                    "/>
-
+                <svg viewBox="0 0 24 24">
+                    <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.5-3a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z"/>
                 </svg>
-
             </div>
 
-            <div class="name">
-                Instagram
-            </div>
-
-            <div class="arrow">
-                ›
-            </div>
-
+            <div class="name">Instagram</div>
+            <div class="arrow">›</div>
         </a>
 
 
         <!-- PAYPAL -->
-
-        <a
-            class="link paypal"
-            href="https://botrix.live/k/1nyrox/tip"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+        <a class="link paypal"
+           href="https://botrix.live/k/1nyrox/tip"
+           target="_blank">
 
             <div class="icon">
-
-                <svg viewBox="0 0 24 24" fill="currentColor">
-
-                    <path d="
-                    M7 3
-                    H14.2
-                    C17.2 3 19.4 4.5 19.4 7.4
-                    C19.4 10.8 17 12.8 13.3 12.8
-                    H10
-                    L8.8 19
-                    H4.4
-                    Z
-
-                    M10.4 10
-                    H13
-                    C14.8 10 16 9 16 7.5
-                    C16 6.3 15.1 5.5 13.5 5.5
-                    H11.6
-                    Z
-                    "/>
-
+                <svg viewBox="0 0 24 24">
+                    <path d="M7 3h7.2c3 0 5.2 1.5 5.2 4.4 0 3.4-2.4 5.4-6.1 5.4H10l-1.2 6H4.4L7 3Zm3.4 2.5-1.2 4.5H13c1.8 0 3-1 3-2.5 0-1.2-.9-2-2.5-2h-1.9Z"/>
                 </svg>
-
             </div>
 
-            <div class="name">
-                PayPal
-            </div>
-
-            <div class="arrow">
-                ›
-            </div>
-
+            <div class="name">PayPal</div>
+            <div class="arrow">›</div>
         </a>
 
     </div>
-
 
     <footer>
         © 2026 <span>YardenRGS</span>. All rights reserved.
@@ -1166,124 +428,55 @@ footer span{
 
 </div>
 
-</div>
-
 
 <script>
 
-/* =================================
-   CREATE HYPERSPACE STARS
-================================= */
+/* ===== CREATE STARS ===== */
 
-const hyperspace =
-    document.getElementById("hyperspace");
+const stars = document.getElementById("stars");
 
-/* הרבה כוכבים */
+for(let i = 0; i < 280; i++){
 
-for(let i=0;i<260;i++){
+    const star = document.createElement("div");
 
-    const star =
-        document.createElement("div");
+    star.className = "star";
 
-    star.className="star";
-
-    const angle =
-        Math.random()*Math.PI*2;
-
-    /*
-       Very large distance
-       so the stars fly OUTWARD
-       from the center.
-    */
+    const angle = Math.random() * Math.PI * 2;
 
     const distance =
-        650 + Math.random()*1100;
+        450 + Math.random() * 1100;
 
     const x =
-        Math.cos(angle)*distance;
+        Math.cos(angle) * distance;
 
     const y =
-        Math.sin(angle)*distance;
+        Math.sin(angle) * distance;
+
+    star.style.left = "50%";
+    star.style.top = "50%";
 
     star.style.setProperty(
         "--x",
-        x+"px"
+        x + "px"
     );
 
     star.style.setProperty(
         "--y",
-        y+"px"
+        y + "px"
     );
 
     star.style.setProperty(
-        "--duration",
-        (1.0+Math.random()*2.2)+"s"
+        "--speed",
+        (2 + Math.random() * 4) + "s"
     );
 
     star.style.setProperty(
         "--delay",
-        (-Math.random()*3)+"s"
+        (-Math.random() * 5) + "s"
     );
 
-    hyperspace.appendChild(star);
+    stars.appendChild(star);
 }
-
-
-/* =================================
-   LONG STREAKS
-================================= */
-
-for(let i=0;i<75;i++){
-
-    const streak =
-        document.createElement("div");
-
-    streak.className="streak";
-
-    streak.style.setProperty(
-        "--angle",
-        Math.random()*360+"deg"
-    );
-
-    streak.style.setProperty(
-        "--duration",
-        (1.2+Math.random()*2)+"s"
-    );
-
-    streak.style.setProperty(
-        "--delay",
-        (-Math.random()*3)+"s"
-    );
-
-    hyperspace.appendChild(streak);
-}
-
-
-/* =================================
-   SHOW WEBSITE
-================================= */
-
-window.addEventListener("load",()=>{
-
-    /*
-       .45s delay
-       + 2.7s rotation
-       + small pause
-    */
-
-    setTimeout(()=>{
-
-        document
-            .getElementById("intro")
-            .classList.add("hide");
-
-        document
-            .getElementById("site")
-            .classList.add("show");
-
-    },3400);
-
-});
 
 </script>
 
