@@ -1,419 +1,258 @@
+
+:root {
+  --bg: #0a0c10;
+  --bg-2: #10141c;
+  --ink: #eef2f7;
+  --ink-dim: #8a94a6;
+  --accent: #2f9bff;
+  --accent-soft: rgba(47, 155, 255, 0.15);
+  --kick: #53fc18;
+  --twitch: #9146ff;
+  --tiktok: #ff2e63;
+  --youtube: #ff3b3b;
+  --instagram: #e1306c;
+  --discord: #5865f2;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Manrope', -apple-system, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 48px 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(600px 380px at 50% -10%, var(--accent-soft), transparent 60%),
+    radial-gradient(500px 400px at 100% 100%, rgba(47,155,255,0.08), transparent 60%);
+  pointer-events: none;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.avatar-wrap {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  padding: 4px;
+  background: conic-gradient(from 210deg, var(--accent), #7fd0ff, var(--accent));
+  margin-bottom: 22px;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 4px solid var(--bg);
+  background: var(--bg);
+}
+
+.name {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.5px;
+  margin: 0 0 6px;
+  color: var(--ink);
+}
+
+.tagline {
+  margin: 0 0 34px;
+  color: var(--ink-dim);
+  font-size: 0.95rem;
+}
+
+.links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.link {
+  --brand: var(--accent);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  background: var(--bg-2);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-left: 3px solid var(--brand);
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.link:hover {
+  transform: translateX(4px);
+  background: #141924;
+  box-shadow: 0 8px 24px -12px var(--brand);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--brand);
+  display: flex;
+}
+
+.icon svg { width: 100%; height: 100%; }
+
+.label {
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+
+.handle {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+}
+
+.link--kick     { --brand: var(--kick); }
+.link--twitch   { --brand: var(--twitch); }
+.link--tiktok   { --brand: var(--tiktok); }
+.link--youtube  { --brand: var(--youtube); }
+.link--instagram{ --brand: var(--instagram); }
+.link--discord  { --brand: var(--discord); }
+
+.footer {
+  margin-top: 36px;
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+  opacity: 0.7;
+}
+
+@media (max-width: 420px) {
+  .name { font-size: 1.6rem; }
+  .handle { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link { transition: none; }
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NyRoXx | Links</title>
-
-<style>
-*{
-    box-sizing:border-box;
-}
-
-html,body{
-    margin:0;
-    width:100%;
-    min-height:100%;
-    background:#000;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-body{
-    overflow-x:hidden;
-}
-
-.site{
-    position:relative;
-    min-height:100vh;
-    width:100%;
-    overflow:hidden;
-    background:#000;
-}
-
-/* BACKGROUND */
-
-.art{
-    position:absolute;
-    inset:-3%;
-    width:106%;
-    height:106%;
-    object-fit:cover;
-    object-position:center;
-
-    animation:spaceMove 14s ease-in-out infinite alternate;
-
-    filter:
-        saturate(1.12)
-        brightness(.92);
-}
-
-/* DARK OVERLAY */
-
-.glow{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    z-index:2;
-
-    background:
-        radial-gradient(
-            circle at 50% 42%,
-            transparent 20%,
-            rgba(0,0,0,.08) 45%,
-            rgba(0,0,0,.55) 100%
-        );
-}
-
-/* MOVING STARS */
-
-.starfield{
-    position:absolute;
-    inset:-50%;
-    z-index:3;
-    pointer-events:none;
-    opacity:.55;
-
-    background-image:
-        radial-gradient(
-            circle,
-            #fff 1px,
-            transparent 1.7px
-        ),
-        radial-gradient(
-            circle,
-            #ad5cff 1px,
-            transparent 1.7px
-        );
-
-    background-size:
-        110px 110px,
-        180px 180px;
-
-    animation:stars 20s linear infinite;
-}
-
-/* LINKS */
-
-.links{
-    position:absolute;
-    z-index:5;
-
-    left:32.7%;
-    width:34.8%;
-
-    top:52.1%;
-    height:39%;
-}
-
-/* INVISIBLE CLICK AREAS */
-
-.hotspot{
-    position:absolute;
-
-    left:0;
-    width:100%;
-    height:12.4%;
-
-    border-radius:12px;
-
-    background:transparent;
-
-    outline:none;
-    cursor:pointer;
-
-    transition:
-        .22s ease;
-}
-
-/* HOVER EFFECT */
-
-.hotspot:hover{
-    background:
-        rgba(150,40,255,.08);
-
-    box-shadow:
-        0 0 28px rgba(165,40,255,.45),
-        inset 0 0 15px rgba(255,255,255,.04);
-
-    transform:scale(1.015);
-}
-
-/* BUTTON POSITIONS */
-
-.h1{
-    top:0;
-}
-
-.h2{
-    top:16.2%;
-}
-
-.h3{
-    top:32.3%;
-}
-
-.h4{
-    top:48.5%;
-}
-
-.h5{
-    top:64.7%;
-}
-
-.h6{
-    top:80.9%;
-}
-
-/* FOOTER */
-
-.credit{
-    position:absolute;
-
-    z-index:6;
-
-    bottom:1.8%;
-    left:0;
-
-    width:100%;
-
-    text-align:center;
-
-    color:
-        rgba(255,255,255,.88);
-
-    font-size:
-        clamp(9px,1vw,14px);
-
-    text-shadow:
-        0 0 10px #7c21ff;
-
-    pointer-events:none;
-}
-
-.credit span{
-    color:#a33cff;
-}
-
-/* =========================
-   ANIMATIONS
-========================= */
-
-@keyframes spaceMove{
-
-    0%{
-        transform:
-            scale(1)
-            translate3d(0,0,0);
-    }
-
-    100%{
-        transform:
-            scale(1.055)
-            translate3d(-.6%,.4%,0);
-    }
-}
-
-@keyframes stars{
-
-    from{
-        transform:
-            translate(0,0)
-            rotate(0);
-    }
-
-    to{
-        transform:
-            translate(140px,110px)
-            rotate(2deg);
-    }
-}
-
-/* =========================
-   TABLET
-========================= */
-
-@media(max-width:900px){
-
-    .art{
-        object-position:center top;
-    }
-
-    .links{
-        left:24%;
-        width:52%;
-
-        top:51.5%;
-        height:40%;
-    }
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:600px){
-
-    .art{
-        width:auto;
-        height:100%;
-
-        left:50%;
-
-        transform:
-            translateX(-50%);
-
-        animation:
-            mobileMove 12s ease-in-out infinite alternate;
-    }
-
-    .links{
-        left:18%;
-        width:64%;
-
-        top:51%;
-        height:40%;
-    }
-
-    .hotspot{
-        border-radius:8px;
-    }
-}
-
-@keyframes mobileMove{
-
-    from{
-        transform:
-            translateX(-51%)
-            scale(1.01);
-    }
-
-    to{
-        transform:
-            translateX(-49%)
-            scale(1.045);
-    }
-}
-
-/* REDUCE MOTION */
-
-@media(prefers-reduced-motion:reduce){
-
-    .art,
-    .starfield{
-        animation:none;
-    }
-}
-</style>
+<title>YourName — Links</title>
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="site">
+  <div class="bg-glow"></div>
 
-    <!--
-    שים את התמונה בשם:
-    background.png
+  <main class="card">
 
-    בתוך:
-    assets/background.png
-    -->
+    <div class="avatar-wrap">
+      <img src="logo.png" alt="YourName logo" class="avatar">
+    </div>
 
-    <img
-        class="art"
-        src="assets/background.png"
-        alt="NyRoXx RGS Links"
-    >
+    <h1 class="name">YOURNAME</h1>
+    <p class="tagline">catch me live &amp; on the feed</p>
 
-    <div class="glow"></div>
+    <nav class="links">
 
-    <div class="starfield"></div>
+      <a class="link link--kick" href="https://kick.com/yourname" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M3 3h5v5.5L13 3h6l-8 8 8 10h-6l-5-6.5V21H3V3z" fill="currentColor"/></svg>
+        </span>
+        <span class="label">Kick</span>
+        <span class="handle">@yourname</span>
+      </a>
 
+      <a class="link link--twitch" href="https://twitch.tv/yourname" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 2 2 6.5V19h5.5V22l3.5-3h4L21 12.5V2H4zm15 9.5-3 3h-4l-2.5 2.5V14.5H6V4h13v7.5z" fill="currentColor"/><path d="M15.5 6.5h2V11h-2V6.5zM10.5 6.5h2V11h-2V6.5z" fill="currentColor"/></svg>
+        </span>
+        <span class="label">Twitch</span>
+        <span class="handle">@yourname</span>
+      </a>
 
-    <!-- LINKS -->
+      <a class="link link--tiktok" href="https://tiktok.com/@yourname" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M16.5 2h-3v13.2a2.8 2.8 0 1 1-2-2.68V9.4a5.8 5.8 0 1 0 5 5.75V8.9c1.1.8 2.4 1.27 3.9 1.27V7.15c-1.9 0-3.4-1.1-3.9-2.65V2z" fill="currentColor"/></svg>
+        </span>
+        <span class="label">TikTok</span>
+        <span class="handle">@yourname</span>
+      </a>
 
-    <nav
-        class="links"
-        aria-label="Social links"
-    >
+      <a class="link link--youtube" href="https://youtube.com/@yourname" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M21.6 7.2s-.2-1.5-.85-2.15c-.8-.85-1.7-.85-2.1-.9C15.9 4 12 4 12 4h-.01s-3.9 0-6.65.15c-.4.05-1.3.05-2.1.9-.65.65-.85 2.15-.85 2.15S2.2 9 2.2 10.8v1.4c0 1.8.2 3.6.2 3.6s.2 1.5.85 2.15c.8.85 1.85.82 2.32.91C7.2 18.98 12 19 12 19s3.9 0 6.65-.15c.4-.05 1.3-.05 2.1-.9.65-.65.85-2.15.85-2.15s.2-1.8.2-3.6v-1.4c0-1.8-.2-3.6-.2-3.6zM9.9 14.6V8.6l5.6 3-5.6 3z" fill="currentColor"/></svg>
+        </span>
+        <span class="label">YouTube</span>
+        <span class="handle">@yourname</span>
+      </a>
 
-        <!-- KICK -->
+      <a class="link link--instagram" href="https://instagram.com/yourname" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor"/></svg>
+        </span>
+        <span class="label">Instagram</span>
+        <span class="handle">@yourname</span>
+      </a>
 
-        <a
-            class="hotspot h1"
-            href="https://kick.com/1nyrox"
-            target="_blank"
-            rel="noopener"
-            aria-label="Kick"
-        ></a>
-
-
-        <!-- YOUTUBE -->
-
-        <a
-            class="hotspot h2"
-            href="https://www.youtube.com/@1NyRoXx"
-            target="_blank"
-            rel="noopener"
-            aria-label="YouTube"
-        ></a>
-
-
-        <!-- TIKTOK -->
-
-        <a
-            class="hotspot h3"
-            href="https://www.tiktok.com/@1nyroxx"
-            target="_blank"
-            rel="noopener"
-            aria-label="TikTok"
-        ></a>
-
-
-        <!-- TWITCH -->
-
-        <a
-            class="hotspot h4"
-            href="https://www.twitch.tv/1nyroxx"
-            target="_blank"
-            rel="noopener"
-            aria-label="Twitch"
-        ></a>
-
-
-        <!-- INSTAGRAM -->
-
-        <a
-            class="hotspot h5"
-            href="https://www.instagram.com/nyroxgg1/?hl=en"
-            target="_blank"
-            rel="noopener"
-            aria-label="Instagram"
-        ></a>
-
-
-        <!-- DONATIONS -->
-
-        <a
-            class="hotspot h6"
-            href="https://botrix.live/k/1nyrox/tip"
-            target="_blank"
-            rel="noopener"
-            aria-label="Donations"
-        ></a>
+      <a class="link link--discord" href="https://discord.gg/yourinvite" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M18.9 5.6A16 16 0 0 0 14.9 4l-.2.4a13 13 0 0 1 3.5 1.3 14.6 14.6 0 0 0-12.4 0A13 13 0 0 1 9.3 4l-.2-.4a16 16 0 0 0-4 1.6C2.9 8.7 2.2 11.8 2.5 14.8a16 16 0 0 0 4.7 2.3l.7-1.1a10 10 0 0 1-1.6-.8l.4-.3a11.7 11.7 0 0 0 10.6 0l.4.3c-.5.3-1 .6-1.6.8l.7 1.1a16 16 0 0 0 4.7-2.3c.4-3.5-.5-6.6-2.6-9.2zM9.2 12.9c-.8 0-1.5-.8-1.5-1.7 0-.9.6-1.7 1.5-1.7.8 0 1.5.8 1.5 1.7 0 .9-.7 1.7-1.5 1.7zm5.6 0c-.8 0-1.5-.8-1.5-1.7 0-.9.6-1.7 1.5-1.7.8 0 1.5.8 1.5 1.7 0 .9-.6 1.7-1.5 1.7z" fill="currentColor"/></svg>
+        </span>
+        <span class="label">Discord</span>
+        <span class="handle">join server</span>
+      </a>
 
     </nav>
 
+    <footer class="footer">© <span id="year"></span> YourName</footer>
 
-    <!-- FOOTER -->
+  </main>
 
-    <div class="credit">
-        © 2026
-        <span>NyRoXx</span>.
-        All rights reserved.
-    </div>
-
-</div>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 
 </body>
 </html>
