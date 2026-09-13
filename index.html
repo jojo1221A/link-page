@@ -338,6 +338,62 @@
     transform: translateY(-1px);
   }
 
+  .status-row{
+    display:flex;
+    gap:10px;
+    margin:0 0 12px;
+  }
+  .status-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Manrope', sans-serif;
+    font-weight:700;
+    font-size:0.78rem;
+    letter-spacing:0.4px;
+    color: var(--ink-dim);
+    background: rgba(255,255,255,0.05);
+    border:1px solid var(--line);
+    padding:7px 16px;
+    border-radius:999px;
+    text-decoration:none;
+  }
+  a.status-pill.is-live{
+    border-color: rgba(255,59,59,0.5);
+    background: rgba(255,59,59,0.1);
+    box-shadow: 0 0 14px rgba(255,59,59,0.3);
+  }
+  .status-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#8a94a6;
+    box-shadow: 0 0 6px #8a94a6;
+  }
+  .status-pill.is-live .status-dot{
+    background:#ff3b3b;
+    box-shadow: 0 0 8px #ff3b3b;
+    animation: liveDotPulse 1.4s ease-in-out infinite;
+  }
+  .status-pill.is-live #live-status-text{ color:#ff6b6b; }
+  @keyframes liveDotPulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.45; } }
+
+  .status-pill--action{
+    border:none;
+    cursor:pointer;
+    color: var(--accent-2);
+    background: rgba(58,164,255,0.10);
+    border:1px solid rgba(58,164,255,0.35);
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  }
+  .status-pill--action:hover{
+    background: rgba(58,164,255,0.2);
+    box-shadow: 0 0 14px rgba(58,164,255,0.4);
+    transform: translateY(-1px);
+  }
+  .share-icon{ width:14px; height:14px; display:flex; }
+  .share-icon svg{ width:100%; height:100%; }
+
   .info-modal{
     position:fixed;
     inset:0;
@@ -620,6 +676,20 @@
     </div>
 
     <h1 class="name">YardenRGS</h1>
+
+    <div class="status-row">
+      <a class="status-pill is-live" id="live-status-pill" href="https://kick.com/yardenrgs" target="_blank" rel="noopener" style="display:none;">
+        <span class="status-dot" id="live-status-dot"></span>
+        <span id="live-status-text">Live now</span>
+      </a>
+      <button class="status-pill status-pill--action" id="btn-share" type="button">
+        <span class="share-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="18" cy="5" r="2.6" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="12" r="2.6" stroke="currentColor" stroke-width="1.6"/><circle cx="18" cy="19" r="2.6" stroke="currentColor" stroke-width="1.6"/><path d="M8.3 10.7 15.7 6.6M8.3 13.3l7.4 4.1" stroke="currentColor" stroke-width="1.6"/></svg>
+        </span>
+        שתף קישור
+      </button>
+    </div>
+
     <div class="quick-links">
       <button class="pill-btn" id="btn-commands" type="button">!פקודות</button>
       <button class="pill-btn" id="btn-info" type="button">מידע</button>
@@ -734,6 +804,83 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // ---- live status: checked automatically from Kick, no manual switch ----
+  (function () {
+    const KICK_SLUG = 'yardenrgs';
+    const pill = document.getElementById('live-status-pill');
+    const CHECK_EVERY_MS = 60000;
+
+    // Kick's channel endpoint has no public CORS header, so a public read-only
+    // proxy is used to relay the request. If every source fails, the pill just
+    // stays hidden rather than guessing.
+    const sources = [
+      `https://kick.com/api/v2/channels/${KICK_SLUG}`,
+      `https://api.allorigins.win/raw?url=${encodeURIComponent('https://kick.com/api/v2/channels/' + KICK_SLUG)}`,
+      `https://corsproxy.io/?url=${encodeURIComponent('https://kick.com/api/v2/channels/' + KICK_SLUG)}`
+    ];
+
+    async function fetchChannel() {
+      for (const url of sources) {
+        try {
+          const res = await fetch(url, { cache: 'no-store' });
+          if (!res.ok) continue;
+          const data = await res.json();
+          return data;
+        } catch (e) { /* try next source */ }
+      }
+      return null;
+    }
+
+    async function checkLive() {
+      const data = await fetchChannel();
+      const live = !!(data && data.livestream);
+      pill.style.display = live ? 'inline-flex' : 'none';
+    }
+
+    checkLive();
+    setInterval(checkLive, CHECK_EVERY_MS);
+  })();
+
+  // ---- share button ----
+  (function () {
+    const btn = document.getElementById('btn-share');
+    btn.addEventListener('click', async () => {
+      const shareData = {
+        title: document.title,
+        text: 'YardenRGS — Links',
+        url: window.location.href
+      };
+      if (navigator.share) {
+        try { await navigator.share(shareData); } catch (e) { /* cancelled */ }
+        return;
+      }
+      const original = btn.innerHTML;
+      function done(label) {
+        btn.textContent = label;
+        setTimeout(() => { btn.innerHTML = original; }, 1600);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+        navigator.clipboard.writeText(window.location.href).then(() => done('הקישור הועתק!')).catch(() => done('לא ניתן להעתיק'));
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = window.location.href;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try {
+          document.execCommand('copy');
+          done('הקישור הועתק!');
+        } catch (e) {
+          done('לא ניתן להעתיק');
+        }
+        document.body.removeChild(ta);
+      }
+    });
+  })();
+
+
   // info / commands modals
   (function () {
     function openModal(id) {
@@ -824,15 +971,23 @@
       rect.style.setProperty('--dash-end', -perimeter);
     }
 
+    const wraps = Array.from(document.querySelectorAll('.run-border'));
     function layoutAll() {
-      document.querySelectorAll('.run-border').forEach(layout);
+      wraps.forEach(layout);
     }
 
     layoutAll();
     window.addEventListener('resize', layoutAll);
+    window.addEventListener('load', layoutAll);
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(layoutAll);
     }
+    // keep it correct no matter what shifts the layout after load
+    if (window.ResizeObserver) {
+      const ro = new ResizeObserver(() => layoutAll());
+      wraps.forEach(w => ro.observe(w));
+    }
+    [200, 600, 1200, 2000].forEach(ms => setTimeout(layoutAll, ms));
   })();
 
 
