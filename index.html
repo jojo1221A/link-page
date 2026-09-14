@@ -361,10 +361,19 @@
     border-radius:999px;
     text-decoration:none;
   }
-  a.status-pill.is-live{
-    border-color: rgba(255,59,59,0.5);
-    background: rgba(255,59,59,0.1);
-    box-shadow: 0 0 14px rgba(255,59,59,0.3);
+  #live-status-pill{
+    border-color: rgba(138,148,166,0.35);
+    background: rgba(138,148,166,0.08);
+  }
+  #live-status-pill.is-live{
+    border-color: rgba(34,224,122,0.5);
+    background: rgba(34,224,122,0.1);
+    box-shadow: 0 0 14px rgba(34,224,122,0.3);
+  }
+  .status-pill--outline{
+    background: transparent;
+    border-color: rgba(58,164,255,0.5);
+    color: var(--accent-2);
   }
   .status-dot{
     width:8px;
@@ -373,12 +382,12 @@
     background:#8a94a6;
     box-shadow: 0 0 6px #8a94a6;
   }
-  .status-pill.is-live .status-dot{
-    background:#ff3b3b;
-    box-shadow: 0 0 8px #ff3b3b;
+  #live-status-pill.is-live .status-dot{
+    background:#22e07a;
+    box-shadow: 0 0 8px #22e07a;
     animation: liveDotPulse 1.4s ease-in-out infinite;
   }
-  .status-pill.is-live #live-status-text{ color:#ff6b6b; }
+  #live-status-pill.is-live #live-status-text{ color:#5fe6a0; }
   @keyframes liveDotPulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.45; } }
 
   .status-pill--action{
@@ -667,6 +676,12 @@
 
   <main class="card">
 
+    <nav class="tabs" aria-label="Sections">
+      <button class="tab" id="btn-commands" type="button">פקודות</button>
+      <button class="tab" id="btn-info" type="button">מידע</button>
+      <a class="tab" href="https://youtube.com/@yardenrgslive?si=Zx8g8jbFKacWV9E9" target="_blank" rel="noopener">ערוץ קליפים</a>
+    </nav>
+
     <div class="avatar-ring">
       <div class="avatar-halo" aria-hidden="true"></div>
       <a href="https://kick.com/yardenrgs" target="_blank" rel="noopener" aria-label="Watch me on Kick">
@@ -680,10 +695,14 @@
     <h1 class="name">YardenRGS</h1>
 
     <div class="status-row">
-      <a class="status-pill is-live" id="live-status-pill" href="https://kick.com/yardenrgs" target="_blank" rel="noopener" style="display:none;">
+      <span class="status-pill status-pill--outline">OFFICIAL LINKS</span>
+      <span class="status-pill" id="live-status-pill">
         <span class="status-dot" id="live-status-dot"></span>
-        <span id="live-status-text">Live now</span>
-      </a>
+        <span id="live-status-text">OFFLINE</span>
+      </span>
+    </div>
+
+    <div class="status-row">
       <button class="status-pill status-pill--action" id="btn-share" type="button">
         <span class="share-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none"><circle cx="18" cy="5" r="2.6" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="12" r="2.6" stroke="currentColor" stroke-width="1.6"/><circle cx="18" cy="19" r="2.6" stroke="currentColor" stroke-width="1.6"/><path d="M8.3 10.7 15.7 6.6M8.3 13.3l7.4 4.1" stroke="currentColor" stroke-width="1.6"/></svg>
@@ -691,12 +710,6 @@
         שתף קישור
       </button>
     </div>
-
-    <nav class="tabs" aria-label="Sections">
-      <button class="tab" id="btn-commands" type="button">פקודות</button>
-      <button class="tab" id="btn-info" type="button">מידע</button>
-      <a class="tab" href="https://youtube.com/@yardenrgslive?si=Zx8g8jbFKacWV9E9" target="_blank" rel="noopener">ערוץ קליפים</a>
-    </nav>
 
     <nav class="links" aria-label="Social links">
 
@@ -840,11 +853,12 @@
   (function () {
     const KICK_SLUG = 'yardenrgs';
     const pill = document.getElementById('live-status-pill');
+    const text = document.getElementById('live-status-text');
     const CHECK_EVERY_MS = 60000;
 
     // Kick's channel endpoint has no public CORS header, so a public read-only
-    // proxy is used to relay the request. If every source fails, the pill just
-    // stays hidden rather than guessing.
+    // proxy is used to relay the request. If every source fails, it just stays
+    // on OFFLINE rather than guessing.
     const sources = [
       `https://kick.com/api/v2/channels/${KICK_SLUG}`,
       `https://api.allorigins.win/raw?url=${encodeURIComponent('https://kick.com/api/v2/channels/' + KICK_SLUG)}`,
@@ -866,7 +880,8 @@
     async function checkLive() {
       const data = await fetchChannel();
       const live = !!(data && data.livestream);
-      pill.style.display = live ? 'inline-flex' : 'none';
+      pill.classList.toggle('is-live', live);
+      text.textContent = live ? 'ONLINE' : 'OFFLINE';
     }
 
     checkLive();
