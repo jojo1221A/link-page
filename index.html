@@ -35,8 +35,8 @@
     inset:0;
     z-index:50;
     background:
-      radial-gradient(1200px 900px at 100% 55%, rgba(35,110,160,0.55), transparent 60%),
-      linear-gradient(180deg, #1a3654 0%, #1e3d5e 50%, #17304c 100%);
+      radial-gradient(1200px 900px at 100% 55%, rgba(60,60,120,0.45), transparent 60%),
+      linear-gradient(180deg, #373665 0%, #252444 50%, #0f0f1c 100%);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -58,11 +58,9 @@
     100%{ opacity:1; transform: scale(1); }
   }
   .intro-logo-wrap{
-    width:60vmin;
-    height:60vmin;
-    max-width:520px;
-    max-height:520px;
-    margin-bottom:18px;
+    width:110px;
+    height:110px;
+    margin-bottom:14px;
   }
   .intro-logo{
     width:100%;
@@ -122,7 +120,7 @@
     width:0%;
     background:linear-gradient(90deg, #3aa4ff, #7fd0ff);
     box-shadow:0 0 10px rgba(58,164,255,0.8);
-    animation: loadFill 1.9s linear forwards;
+    animation: loadFill 0.9s linear forwards;
   }
   @keyframes loadFill{
     0%{ width:0%; }
@@ -677,9 +675,9 @@
   <main class="card">
 
     <nav class="tabs" aria-label="Sections">
-      <button class="tab" id="btn-commands" type="button">פקודות</button>
-      <button class="tab" id="btn-info" type="button">מידע</button>
-      <a class="tab" href="https://youtube.com/@yardenrgslive?si=Zx8g8jbFKacWV9E9" target="_blank" rel="noopener">ערוץ קליפים</a>
+      <button class="tab" id="btn-commands" type="button">Commands</button>
+      <button class="tab" id="btn-info" type="button">Info</button>
+      <a class="tab" href="https://youtube.com/@yardenrgslive?si=Zx8g8jbFKacWV9E9" target="_blank" rel="noopener">Clips</a>
     </nav>
 
     <div class="avatar-ring">
@@ -793,36 +791,36 @@
   <div class="info-modal" id="modal-commands">
     <div class="info-modal-card">
       <div class="info-modal-head">
-        <h2>פקודות בצ'אט (Kick)</h2>
+        <h2>Chat Commands (Kick)</h2>
         <button class="info-modal-close" data-close>✕</button>
       </div>
       <div class="cmd-row">
         <div class="cmd-top">
           <div class="cmd-name">!watchtime</div>
-          <button class="copy-btn" data-copy="!watchtime" type="button">העתק</button>
+          <button class="copy-btn" data-copy="!watchtime" type="button">Copy</button>
         </div>
-        <div class="cmd-desc">זמן צפייה כולל בלייבים</div>
+        <div class="cmd-desc">Total watch time across livestreams</div>
       </div>
       <div class="cmd-row">
         <div class="cmd-top">
           <div class="cmd-name">!followage</div>
-          <button class="copy-btn" data-copy="!followage" type="button">העתק</button>
+          <button class="copy-btn" data-copy="!followage" type="button">Copy</button>
         </div>
-        <div class="cmd-desc">זמן עוקב כולל בקיק</div>
+        <div class="cmd-desc">Total follow time on Kick</div>
       </div>
       <div class="cmd-row">
         <div class="cmd-top">
           <div class="cmd-name">!clip</div>
-          <button class="copy-btn" data-copy="!clip" type="button">העתק</button>
+          <button class="copy-btn" data-copy="!clip" type="button">Copy</button>
         </div>
-        <div class="cmd-desc">קליפ מ־30 השניות האחרונות</div>
+        <div class="cmd-desc">Clip of the last 30 seconds</div>
       </div>
       <div class="cmd-row">
         <div class="cmd-top">
           <div class="cmd-name">!discord</div>
-          <button class="copy-btn" data-copy="!discord" type="button">העתק</button>
+          <button class="copy-btn" data-copy="!discord" type="button">Copy</button>
         </div>
-        <div class="cmd-desc">קישור לשרת הדיסקורד</div>
+        <div class="cmd-desc">Link to the Discord server</div>
       </div>
     </div>
   </div>
@@ -830,19 +828,19 @@
   <div class="info-modal" id="modal-info">
     <div class="info-modal-card">
       <div class="info-modal-head">
-        <h2>הסטאפ שלי</h2>
+        <h2>My Setup</h2>
         <button class="info-modal-close" data-close>✕</button>
       </div>
-      <div class="spec-row"><span class="spec-label">מעבד</span><span class="spec-right"><span class="spec-value">AMD Ryzen 7 9800X3D</span><button class="copy-btn" data-copy="AMD Ryzen 7 9800X3D" type="button">העתק</button></span></div>
-      <div class="spec-row"><span class="spec-label">כרטיס מסך</span><span class="spec-right"><span class="spec-value">GIGABYTE RTX 5080 16GB</span><button class="copy-btn" data-copy="GIGABYTE RTX 5080 16GB" type="button">העתק</button></span></div>
-      <div class="spec-row"><span class="spec-label">זיכרון</span><span class="spec-right"><span class="spec-value">G.SKILL AEGIS 5 DDR5 64GB</span><button class="copy-btn" data-copy="G.SKILL AEGIS 5 DDR5 64GB" type="button">העתק</button></span></div>
-      <div class="spec-row"><span class="spec-label">אחסון</span><span class="spec-right"><span class="spec-value">WD Blue SN5000 2TB NVMe</span><button class="copy-btn" data-copy="WD Blue SN5000 2TB NVMe" type="button">העתק</button></span></div>
-      <div class="spec-row"><span class="spec-label">לוח אם</span><span class="spec-right"><span class="spec-value">GIGABYTE B850 EAGLE WIFI7</span><button class="copy-btn" data-copy="GIGABYTE B850 EAGLE WIFI7" type="button">העתק</button></span></div>
-      <div class="spec-row"><span class="spec-label">מקלדת</span><span class="spec-right"><span class="spec-value">ATTACK SHARK 60HE</span><button class="copy-btn" data-copy="ATTACK SHARK 60HE" type="button">העתק</button></span></div>
-      <div class="spec-row"><span class="spec-label">עכבר</span><span class="spec-right"><span class="spec-value">ATTACK SHARK R5 Ultra</span><button class="copy-btn" data-copy="ATTACK SHARK R5 Ultra" type="button">העתק</button></span></div>
-      <div class="spec-row"><span class="spec-label">מיקרופון</span><span class="spec-right"><span class="spec-value">Elgato Wave:3 MK2</span><button class="copy-btn" data-copy="Elgato Wave:3 MK2" type="button">העתק</button></span></div>
-      <div class="spec-row"><span class="spec-label">אוזניות</span><span class="spec-right"><span class="spec-value">HyperX Cloud III S Wireless</span><button class="copy-btn" data-copy="HyperX Cloud III S Wireless" type="button">העתק</button></span></div>
-      <div class="spec-row"><span class="spec-label">מצלמה</span><span class="spec-right"><span class="spec-value">Canon R50 V</span><button class="copy-btn" data-copy="Canon R50 V" type="button">העתק</button></span></div>
+      <div class="spec-row"><span class="spec-label">CPU</span><span class="spec-right"><span class="spec-value">AMD Ryzen 7 9800X3D</span><button class="copy-btn" data-copy="AMD Ryzen 7 9800X3D" type="button">Copy</button></span></div>
+      <div class="spec-row"><span class="spec-label">GPU</span><span class="spec-right"><span class="spec-value">GIGABYTE RTX 5080 16GB</span><button class="copy-btn" data-copy="GIGABYTE RTX 5080 16GB" type="button">Copy</button></span></div>
+      <div class="spec-row"><span class="spec-label">RAM</span><span class="spec-right"><span class="spec-value">G.SKILL AEGIS 5 DDR5 64GB</span><button class="copy-btn" data-copy="G.SKILL AEGIS 5 DDR5 64GB" type="button">Copy</button></span></div>
+      <div class="spec-row"><span class="spec-label">Storage</span><span class="spec-right"><span class="spec-value">WD Blue SN5000 2TB NVMe</span><button class="copy-btn" data-copy="WD Blue SN5000 2TB NVMe" type="button">Copy</button></span></div>
+      <div class="spec-row"><span class="spec-label">Motherboard</span><span class="spec-right"><span class="spec-value">GIGABYTE B850 EAGLE WIFI7</span><button class="copy-btn" data-copy="GIGABYTE B850 EAGLE WIFI7" type="button">Copy</button></span></div>
+      <div class="spec-row"><span class="spec-label">Keyboard</span><span class="spec-right"><span class="spec-value">ATTACK SHARK 60HE</span><button class="copy-btn" data-copy="ATTACK SHARK 60HE" type="button">Copy</button></span></div>
+      <div class="spec-row"><span class="spec-label">Mouse</span><span class="spec-right"><span class="spec-value">ATTACK SHARK R5 Ultra</span><button class="copy-btn" data-copy="ATTACK SHARK R5 Ultra" type="button">Copy</button></span></div>
+      <div class="spec-row"><span class="spec-label">Microphone</span><span class="spec-right"><span class="spec-value">Elgato Wave:3 MK2</span><button class="copy-btn" data-copy="Elgato Wave:3 MK2" type="button">Copy</button></span></div>
+      <div class="spec-row"><span class="spec-label">Headphones</span><span class="spec-right"><span class="spec-value">HyperX Cloud III S Wireless</span><button class="copy-btn" data-copy="HyperX Cloud III S Wireless" type="button">Copy</button></span></div>
+      <div class="spec-row"><span class="spec-label">Camera</span><span class="spec-right"><span class="spec-value">Canon R50 V</span><button class="copy-btn" data-copy="Canon R50 V" type="button">Copy</button></span></div>
     </div>
   </div>
 
@@ -950,7 +948,7 @@
 
         function showCopied() {
           const original = btn.textContent;
-          btn.textContent = 'הועתק!';
+          btn.textContent = 'Copied!';
           btn.classList.add('copied');
           setTimeout(() => {
             btn.textContent = original;
@@ -971,8 +969,8 @@
             document.execCommand('copy');
             showCopied();
           } catch (e) {
-            btn.textContent = 'שגיאה';
-            setTimeout(() => { btn.textContent = 'העתק'; }, 1400);
+            btn.textContent = 'Error';
+            setTimeout(() => { btn.textContent = 'Copy'; }, 1400);
           }
           document.body.removeChild(ta);
         }
@@ -1083,7 +1081,7 @@
       }, 380);
     }
 
-    setTimeout(finishIntro, 1900);
+    setTimeout(finishIntro, 900);
     document.getElementById('intro').addEventListener('click', finishIntro);
   })();
 
