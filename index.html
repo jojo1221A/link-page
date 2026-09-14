@@ -588,25 +588,27 @@
   .run-border--discord{ --run-color: #3aa4ff; }
 
   .link{
-    --brand: var(--accent);
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:clamp(12px, 1.4vw, 18px);
-    width:100%;
-    aspect-ratio: 430 / 90;
-    padding:0 clamp(26px, 3.2vw, 44px);
-    border-radius:14px;
-    background: linear-gradient(180deg, rgba(21,32,54,0.92), rgba(13,21,38,0.92));
-    backdrop-filter: blur(4px);
-    border:1px solid var(--line);
-    text-decoration:none;
-    color:var(--ink);
-    overflow:hidden;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  --brand: var(--accent);
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:clamp(12px, 1.4vw, 18px);
+  width:430px;
+  height:90px;
+  max-width:100%;
+  padding:0 clamp(26px, 3.2vw, 44px);
+  border-radius:14px;
+  background:linear-gradient(180deg, rgba(21,32,54,0.92), rgba(13,21,38,0.92));
+  backdrop-filter:blur(4px);
+  border:1px solid var(--line);
+  text-decoration:none;
+  color:var(--ink);
+  overflow:hidden;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform 0.18s ease,box-shadow 0.18s ease,border-color 0.18s ease;
+}
   }
   .link::before{
     content:"";
